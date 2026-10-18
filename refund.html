@@ -4,247 +4,43 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
+<title>Возврат</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;600&family=Unbounded:wght@600&display=swap">
+<style>
+:root{--bg:#edf3ee;--surface:#fbfdfb;--ink:#11261a;--ink-2:#4a6253;--line:#d3dfd5;--accent:#12803f;--accent-soft:#d4eedd}
+@media (prefers-color-scheme: dark){:root{--bg:#08130d;--surface:#102017;--ink:#e5f4ea;--ink-2:#98b6a3;--line:#233f2e;--accent:#4bd68a;--accent-soft:#1a4a2e;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 "Onest",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:760px;margin:0 auto;padding:24px max(16px,env(safe-area-inset-right,0px)) 64px max(16px,env(safe-area-inset-left,0px))}
+a{color:var(--accent);text-underline-offset:3px}
+h1{font:600 clamp(26px,5vw,36px)/1.15 "Unbounded","Onest",system-ui,sans-serif;letter-spacing:-.02em;margin:18px 0 8px}
+h2{font:600 19px/1.3 "Onest",system-ui,sans-serif;margin:32px 0 8px}
+p,ul{margin:8px 0}
+ul{padding-left:22px}
+.back{font-weight:600;display:inline-block;margin-top:8px}
+.warn{background:var(--accent-soft);border-radius:14px;padding:12px 16px;font-size:15px;margin-top:16px}
+mark{background:var(--accent-soft);color:var(--ink);padding:0 4px;border-radius:4px}
+</style>
 </head>
 <body>
-<title>Blazow</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Небольшие приложения для повседневных дел. Работают прямо в браузере, демо бесплатно.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Unbounded:wght@500;600&display=swap">
-<style>
-:root{
-  --bg:#edf3ee; --bg-glow:#dcebe0; --surface:#fbfdfb; --surface-2:#e6efe8; --ink:#11261a; --ink-2:#4a6253; --line:#d3dfd5;
-  --accent:#12803f; --on-accent:#ffffff; --leaf:#3bbf7c; --accent-soft:#d4eedd; --xp:#a86a00;
-  --shadow:0 2px 4px rgba(17,38,26,.06),0 18px 44px rgba(17,38,26,.14);
-  --f-body:"Onest",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --f-disp:"Unbounded","Onest",system-ui,sans-serif;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#08130d; --bg-glow:#0f2a1b; --surface:#102017; --surface-2:#18301f; --ink:#e5f4ea; --ink-2:#98b6a3; --line:#233f2e;
-    --accent:#4bd68a; --on-accent:#05210f; --leaf:#3ecf7a; --accent-soft:#1a4a2e; --xp:#f0b94a;
-    --shadow:0 2px 4px rgba(0,0,0,.4),0 18px 44px rgba(0,0,0,.5);
-    color-scheme:dark;
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#08130d; --bg-glow:#0f2a1b; --surface:#102017; --surface-2:#18301f; --ink:#e5f4ea; --ink-2:#98b6a3; --line:#233f2e;
-  --accent:#4bd68a; --on-accent:#05210f; --leaf:#3ecf7a; --accent-soft:#1a4a2e; --xp:#f0b94a;
-  --shadow:0 2px 4px rgba(0,0,0,.4),0 18px 44px rgba(0,0,0,.5);
-  color-scheme:dark;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background-color:var(--bg);background-image:radial-gradient(1100px 420px at 50% -160px,var(--bg-glow),transparent);background-repeat:no-repeat;color:var(--ink);font:400 17px/1.55 var(--f-body);-webkit-font-smoothing:antialiased}
-[hidden]{display:none!important}
-h1,h2,h3,p,ul,figure{margin:0}
-a{color:inherit}
-:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
-.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-section{padding-block:40px}
-h2{font:600 clamp(24px,4.4vw,34px)/1.18 var(--f-disp);letter-spacing:-.015em;text-wrap:balance}
-.sub{color:var(--ink-2);margin-top:10px;max-width:56ch}
+<main>
+<a class="back" href="./">← На главную</a>
+<h1>Возврат</h1>
+<p class="warn">Это шаблон. Подставьте свои данные в выделенных местах и при необходимости покажите текст юристу.</p>
+<h2>Когда возможен возврат</h2>
+<ul>
+<li>Ключ не подошёл, и проблему не удалось решить в течение <mark>[3]</mark> рабочих дней после обращения.</li>
+<li>Оплата прошла дважды за один и тот же заказ.</li>
+<li>Полная версия не открывает заявленные возможности, и это не удалось исправить.</li>
+</ul>
+<h2>Как оформить возврат</h2>
+<p>Напишите на <mark>[e-mail]</mark> в течение <mark>[14]</mark> дней после покупки. Укажите номер заказа или e-mail, который вводили при оплате, и опишите, что не получилось.</p>
+<h2>Сроки и способ</h2>
+<p>Деньги возвращаются тем же способом, которым была оплата, в течение <mark>[10]</mark> рабочих дней после согласования возврата. Фактические сроки зависят от банка.</p>
+<h2>Продавец</h2>
+<p>Захаров Михаил Андреевич, ИНН <mark>[ИНН]</mark></p>
 
-.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:16px}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font:600 16px/1.15 var(--f-disp);letter-spacing:-.01em}
-.brand svg{width:32px;height:32px;color:var(--accent);flex:none}
-.bar nav{display:flex;gap:20px}
-.bar nav a{font-weight:600;color:var(--accent);text-underline-offset:4px}
-
-.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 24px;border-radius:16px;border:1.5px solid var(--accent);background:var(--accent);color:var(--on-accent);font:700 17px/1 var(--f-body);text-decoration:none;cursor:pointer}
-.btn:hover{filter:brightness(1.08)}
-.btn.ghost{background:transparent;color:var(--accent)}
-
-.hero{padding-block:36px 28px}
-.hero h1{font:600 clamp(32px,6vw,54px)/1.06 var(--f-disp);letter-spacing:-.025em;max-width:16ch;text-wrap:balance}
-.hero .lead{font-size:clamp(17px,2.2vw,20px);color:var(--ink-2);margin-top:18px;max-width:50ch}
-
-/* проекты */
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:26px}
-.proj{background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:28px}
-.proj h3{font:600 clamp(22px,3.4vw,28px)/1.15 var(--f-disp);letter-spacing:-.015em;margin-top:12px}
-.proj p{color:var(--ink-2);margin-top:10px}
-.tag{display:inline-block;font-size:13px;font-weight:700;border-radius:99px;padding:3px 11px;background:var(--accent-soft);color:var(--accent)}
-.tag.soon{background:var(--surface-2);color:var(--ink-2)}
-.feat{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:36px;align-items:center;box-shadow:var(--shadow)}
-.feat ul{list-style:none;padding:0;margin-top:16px;display:flex;flex-direction:column;gap:8px}
-.feat li{display:flex;gap:10px;align-items:flex-start}
-.feat li svg{width:20px;height:20px;color:var(--accent);flex:none;margin-top:3px}
-.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
-.more{display:inline-block;margin-top:16px;font-weight:600;color:var(--accent);text-underline-offset:4px}
-.pimg{display:block;justify-self:center;width:100%;max-width:300px}
-.pimg img{display:block;width:100%;height:auto;border-radius:28px;border:1px solid var(--line);box-shadow:var(--shadow)}
-.proj.soonc{background:transparent;border:2px dashed var(--line);min-height:190px}
-.proj.soonc h3{font-size:22px;color:var(--ink)}
-
-.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:8px}
-.facts div{border-top:2px solid var(--leaf);padding-top:14px}
-.facts b{display:block;font-size:18px;margin-bottom:4px}
-.facts span{color:var(--ink-2);font-size:16px}
-
-footer{border-top:1px solid var(--line);padding-block:32px 48px;font-size:14.5px;color:var(--ink-2);margin-top:24px}
-footer .cols{display:flex;gap:16px 40px;flex-wrap:wrap;justify-content:space-between}
-footer nav{display:flex;gap:8px 22px;flex-wrap:wrap}
-footer a{text-underline-offset:3px}
-mark{background:var(--accent-soft);color:var(--ink);padding:0 4px;border-radius:4px}
-
-@media (max-width:860px){
-  .grid{grid-template-columns:1fr}
-  .feat{grid-template-columns:1fr;gap:28px;padding:22px}
-  .facts{grid-template-columns:1fr;gap:20px}
-  .proj{padding:22px}
-}
-@media (max-width:560px){.actions .btn{width:100%}.bar nav a:first-child{display:none}}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-</style>
-
-<div class="wrap">
-  <header class="bar">
-    <a class="brand" href="#top" aria-label="Blazow, на главную">
-      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect width="32" height="32" rx="10" fill="currentColor"/><rect x="7" y="7" width="8" height="8" rx="2.500" fill="#fff"/><rect x="17" y="7" width="8" height="8" rx="2.500" fill="#fff" opacity=".55"/><rect x="7" y="17" width="8" height="8" rx="2.500" fill="#fff" opacity=".55"/><rect x="17" y="17" width="8" height="8" rx="2.500" fill="#fff" opacity=".55"/></svg>
-      <span>Blazow</span>
-    </a>
-    <nav aria-label="Разделы"><a href="#projects">Проекты</a><a href="contacts.html">Контакты</a></nav>
-  </header>
-
-  <section class="hero" id="top">
-    <h1>Простые инструменты для повседневных дел</h1>
-    <p class="lead">Каждый проект работает прямо в браузере, без установки и регистрации. Попробуйте бесплатно, а если понравится, заплатите один раз и пользуйтесь без подписки.</p>
-  </section>
-
-  <section id="projects" style="padding-top:12px">
-    <h2>Проекты</h2>
-    <div class="grid" id="grid"></div>
-    <noscript><p class="sub">Для просмотра списка проектов нужен JavaScript. Приложение «Матрица продуктивности» открывается <a href="matrix/">здесь</a>.</p></noscript>
-  </section>
-
-  <section>
-    <div class="facts">
-      <div><b>Работает в браузере</b><span>Телефон, планшет или компьютер. Ничего не нужно устанавливать.</span></div>
-      <div><b>Данные остаются у вас</b><span>Прогресс хранится на вашем устройстве и никуда не отправляется.</span></div>
-      <div><b>Платите один раз</b><span>Без подписок и скрытых платежей. Демо открывается бесплатно.</span></div>
-    </div>
-  </section>
-</div>
-
-<footer>
-  <div class="wrap cols">
-    <div>
-      <p>Blazow</p>
-      <p style="margin-top:6px">Продавец: Захаров Михаил Андреевич, ИНН <mark>[ИНН]</mark></p>
-    </div>
-    <nav aria-label="Документы">
-      <a href="offer.html">Публичная оферта</a>
-      <a href="refund.html">Возврат</a>
-      <a href="contacts.html">Контакты</a>
-    </nav>
-  </div>
-</footer>
-
-<style>
-.co[hidden]{display:none!important}
-.co{position:fixed;inset:0;z-index:100;display:flex;align-items:flex-end;justify-content:center}
-.co-scrim{position:absolute;inset:0;background:rgba(4,16,9,.6)}
-.co-sheet{position:relative;width:100%;max-width:480px;max-height:92vh;overflow:auto;background:var(--surface);color:var(--ink);border-radius:26px 26px 0 0;padding:24px max(20px,env(safe-area-inset-left,0px)) calc(24px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:14px}
-.co-sheet h2{font:600 22px/1.2 var(--f-disp);letter-spacing:-.01em;padding-right:44px;margin:0}
-.co-x{position:absolute;top:14px;right:14px;width:42px;height:42px;border-radius:12px;border:0;background:var(--surface-2);color:var(--ink);font:400 26px/1 var(--f-body);cursor:pointer}
-.co-sum{display:flex;justify-content:space-between;align-items:center;gap:16px;background:var(--surface-2);border-radius:18px;padding:16px}
-.co-sum b{display:block;font-weight:700}
-.co-sum span{display:block;font-size:14px;color:var(--ink-2);margin-top:2px}
-.co-price{font:600 26px/1 var(--f-disp);letter-spacing:-.02em;white-space:nowrap}
-.co-fld{display:flex;flex-direction:column;gap:6px;font-weight:600;font-size:15px}
-.co-fld input{min-height:48px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);padding:10px 14px;font:400 16px var(--f-body)}
-.co-fld input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 25%,transparent)}
-.co-check{display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.4}
-.co-check input{width:22px;height:22px;margin:1px 0 0;accent-color:var(--accent);flex:none}
-.co-check a{color:var(--accent)}
-.co-err{margin:0;color:#b3361f;font-weight:600;font-size:14.5px}
-:root[data-theme="dark"] .co-err{color:#ff8a72}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .co-err{color:#ff8a72}}
-.co-pay{width:100%}
-.co-note{margin:0;font-size:14px;color:var(--ink-2)}
-.co-note.ok{color:var(--ink);background:var(--accent-soft);border-radius:12px;padding:10px 14px}
-@media (min-width:640px){.co{align-items:center}.co-sheet{border-radius:26px}}
-</style>
-<div id="co" class="co" hidden>
-  <div class="co-scrim" data-co-close></div>
-  <form class="co-sheet" id="co-form" role="dialog" aria-modal="true" aria-labelledby="co-title" novalidate>
-    <button type="button" class="co-x" data-co-close aria-label="Закрыть">×</button>
-    <h2 id="co-title">Покупка</h2>
-    <div class="co-sum"><div><b id="co-name"></b><span id="co-desc"></span></div><div class="co-price" id="co-price"></div></div>
-    <label class="co-fld"><span>E-mail для ключа</span><input id="co-email" type="email" inputmode="email" autocomplete="email" placeholder="name@example.com"></label>
-    <label class="co-check"><input id="co-offer" type="checkbox"><span>Принимаю условия <a href="offer.html" target="_blank" rel="noopener">публичной оферты</a></span></label>
-    <p class="co-err" id="co-err" role="alert" hidden></p>
-    <button class="btn co-pay" type="submit">Перейти к оплате</button>
-    <p class="co-note" id="co-note">Оплата проходит через Робокассу. После оплаты вы получите ключ активации.</p>
-  </form>
-</div>
-<script>
-(function(){
-  /* Товары, которые можно купить. Новый товар добавляется сюда одной строкой. */
-  var PRODUCTS={
-    matrix:{name:'Матрица продуктивности',price:'299 ₽',desc:'Полная версия приложения, разовый платёж'}
-  };
-  /* Адрес обработчика оплаты. Пока пусто: оплата подключается после регистрации в Робокассе. */
-  var PAY_ENDPOINT='';
-  var el=document.getElementById('co'),form=document.getElementById('co-form'),email=document.getElementById('co-email'),offer=document.getElementById('co-offer'),errEl=document.getElementById('co-err'),note=document.getElementById('co-note'),noteText=note.textContent,prev=null;
-  function open(id){
-    var p=PRODUCTS[id];if(!p)return;
-    form.dataset.product=id;
-    document.getElementById('co-name').textContent=p.name;
-    document.getElementById('co-desc').textContent=p.desc;
-    document.getElementById('co-price').textContent=p.price;
-    errEl.hidden=true;note.textContent=noteText;note.className='co-note';
-    prev=document.activeElement;el.hidden=false;document.body.style.overflow='hidden';
-    setTimeout(function(){try{email.focus();}catch(e){}},30);
-  }
-  function close(){el.hidden=true;document.body.style.overflow='';if(prev&&prev.focus){try{prev.focus();}catch(e){}}}
-  function fail(m){errEl.textContent=m;errEl.hidden=false;}
-  form.addEventListener('submit',function(e){
-    e.preventDefault();
-    var v=email.value.trim();
-    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)){fail('Введите адрес почты, на который отправить ключ.');email.focus();return;}
-    if(!offer.checked){fail('Нужно согласиться с условиями оферты.');return;}
-    errEl.hidden=true;
-    if(!PAY_ENDPOINT){note.textContent='Приём оплаты ещё подключается. Как только он заработает, здесь откроется страница Робокассы.';note.className='co-note ok';return;}
-    window.location.href=PAY_ENDPOINT+'?product='+encodeURIComponent(form.dataset.product)+'&email='+encodeURIComponent(v);
-  });
-  document.addEventListener('click',function(e){
-    var b=e.target.closest&&e.target.closest('[data-buy]');
-    if(b){e.preventDefault();open(b.getAttribute('data-buy'));return;}
-    if(e.target.closest&&e.target.closest('[data-co-close]'))close();
-  });
-  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!el.hidden)close();});
-})();
-</script>
-
-
-<script>
-(function(){
-  /* Список проектов. Чтобы добавить новый, скопируйте блок и поменяйте текст.
-     status: 'live' показывает готовый проект, 'soon' показывает пустое место «Скоро». */
-  var CHECK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
-  var PROJECTS=[
-    {status:'live',name:'Матрица продуктивности',
-     text:'Задачи, привычки и хобби в одном приложении. За каждое дело начисляется опыт, растут уровень и растение, а неделя и месяц показывают, что получается на самом деле.',
-     points:['Демо бесплатно, регистрация не нужна','Полная версия: календарь месяца, графики роста, любое число целей'],
-     price:'299 ₽',buy:'matrix',demo:'matrix/app/',page:'matrix/',
-     img:'img/today.webp',alt:'Приложение «Матрица продуктивности»: уровень 9, растение и список дел на сегодня'},
-    {status:'soon',name:'Новый проект',text:'Мы работаем над следующим инструментом. Загляните сюда позже.'},
-    {status:'soon',name:'Новый проект',text:'Здесь появится ещё одно приложение.'}
-  ];
-  var html=PROJECTS.map(function(p){
-    if(p.status==='live'){
-      return '<article class="proj feat"><div><span class="tag">Доступно</span><h3>'+p.name+'</h3><p>'+p.text+'</p><ul>'+p.points.map(function(x){return '<li>'+CHECK+'<span>'+x+'</span></li>';}).join('')+'</ul>'+
-        '<div class="actions"><button class="btn" type="button" data-buy="'+p.buy+'">Купить за '+p.price+'</button><a class="btn ghost" href="'+p.demo+'">Попробовать бесплатно</a></div>'+
-        '<a class="more" href="'+p.page+'">Подробнее о приложении</a></div>'+
-        '<a class="pimg" href="'+p.page+'" aria-label="Страница приложения"><img src="'+p.img+'" width="390" height="844" alt="'+p.alt+'"></a></article>';
-    }
-    return '<article class="proj soonc"><div><span class="tag soon">Скоро</span></div><h3>'+p.name+'</h3><p>'+p.text+'</p></article>';
-  }).join('');
-  document.getElementById('grid').innerHTML=html;
-})();
-</script>
-
+</main>
 </body>
 </html>
