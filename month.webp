@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Публичная оферта</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;600&family=Unbounded:wght@600&display=swap">
+<style>
+:root{--bg:#edf3ee;--surface:#fbfdfb;--ink:#11261a;--ink-2:#4a6253;--line:#d3dfd5;--accent:#12803f;--accent-soft:#d4eedd}
+@media (prefers-color-scheme: dark){:root{--bg:#08130d;--surface:#102017;--ink:#e5f4ea;--ink-2:#98b6a3;--line:#233f2e;--accent:#4bd68a;--accent-soft:#1a4a2e;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 "Onest",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:760px;margin:0 auto;padding:24px max(16px,env(safe-area-inset-right,0px)) 64px max(16px,env(safe-area-inset-left,0px))}
+a{color:var(--accent);text-underline-offset:3px}
+h1{font:600 clamp(26px,5vw,36px)/1.15 "Unbounded","Onest",system-ui,sans-serif;letter-spacing:-.02em;margin:18px 0 8px}
+h2{font:600 19px/1.3 "Onest",system-ui,sans-serif;margin:32px 0 8px}
+p,ul{margin:8px 0}
+ul{padding-left:22px}
+.back{font-weight:600;display:inline-block;margin-top:8px}
+.warn{background:var(--accent-soft);border-radius:14px;padding:12px 16px;font-size:15px;margin-top:16px}
+mark{background:var(--accent-soft);color:var(--ink);padding:0 4px;border-radius:4px}
+</style>
+</head>
+<body>
+<main>
+<a class="back" href="./">← На главную</a>
+<h1>Публичная оферта</h1>
+<p class="warn">Это шаблон. Подставьте свои данные в выделенных местах и при необходимости покажите текст юристу.</p>
+<h2>1. Общие положения</h2>
+<p>Настоящий документ является публичной офертой продавца: Захаров Михаил Андреевич, ИНН <mark>[ИНН]</mark> (далее «Продавец»). Оферта адресована любому лицу (далее «Покупатель») и действует с момента размещения на сайте <mark>[адрес сайта]</mark>.</p>
+<p>Акцептом оферты считается оплата товара через платёжную форму на сайте.</p>
+<h2>2. Предмет</h2>
+<p>Продавец предоставляет Покупателю ключ активации полной версии веб-приложения «Матрица продуктивности» (далее «Товар»). Демо-версия приложения доступна бесплатно. Приложение работает в браузере и не требует установки.</p>
+<h2>3. Цена и оплата</h2>
+<p>Цена Товара указана на сайте и составляет 299 рублей. Оплата разовая, подписки нет. Оплата принимается через сервис Робокасса.</p>
+<h2>4. Передача Товара</h2>
+<p>Товар передаётся в электронном виде: ключ активации отображается на странице после успешной оплаты <mark>[и отправляется на указанный при оплате e-mail]</mark>. Ключ вводится в приложении на вкладке «Цели».</p>
+<h2>5. Возврат</h2>
+<p>Условия возврата описаны на странице <a href="refund.html">«Возврат»</a>.</p>
+<h2>6. Ответственность</h2>
+<p>Приложение предоставляется в том виде, в котором оно есть. Данные Покупателя хранятся в браузере на его устройстве, Продавец не имеет к ним доступа. Для сохранности данных рекомендуется пользоваться функцией резервной копии в приложении.</p>
+<h2>7. Персональные данные</h2>
+<p>Приложение не собирает и не передаёт персональные данные. При оплате платёжные данные обрабатывает Робокасса. Адрес электронной почты, если Покупатель его указал, используется только для отправки ключа и связи по вопросам покупки.</p>
+<h2>8. Реквизиты Продавца</h2>
+<p>Захаров Михаил Андреевич, ИНН <mark>[ИНН]</mark><br>E-mail: <mark>[e-mail]</mark><br>Телефон или Telegram: <mark>[контакт]</mark></p>
+
+</main>
+</body>
+</html>
