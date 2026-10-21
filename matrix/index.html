@@ -341,7 +341,7 @@ mark{background:var(--accent-soft);color:var(--ink);padding:0 4px;border-radius:
     matrix:{name:'Матрица продуктивности',price:'299 ₽',desc:'Полная версия приложения, разовый платёж'}
   };
   /* Адрес обработчика оплаты. Берётся из API_BASE в build_site.py. Пока пусто: оплата подключается после регистрации в Робокассе. */
-  var API_BASE='';
+  var API_BASE='https://blazow-pay.ll5247066.workers.dev';
   var PAY_ENDPOINT=API_BASE?API_BASE+'/pay':'';
   var el=document.getElementById('co'),form=document.getElementById('co-form'),email=document.getElementById('co-email'),offer=document.getElementById('co-offer'),errEl=document.getElementById('co-err'),note=document.getElementById('co-note'),noteText=note.textContent,prev=null;
   function open(id){
@@ -365,10 +365,10 @@ mark{background:var(--accent-soft);color:var(--ink);padding:0 4px;border-radius:
     if(!PAY_ENDPOINT){note.textContent='Приём оплаты ещё подключается. Как только он заработает, здесь откроется страница Робокассы.';note.className='co-note ok';return;}
     var btn=form.querySelector('.co-pay');btn.disabled=true;
     fetch(PAY_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({product:form.dataset.product,email:v})})
-      .then(function(r){return r.json().then(function(d){return {ok:r.ok,d:d};});})
+      .then(function(r){return r.json().then(function(d){return {ok:r.ok,st:r.status,d:d};},function(){return {ok:false,st:r.status,d:null};});})
       .then(function(x){
         if(x.ok&&x.d&&x.d.url){window.location.href=x.d.url;return;}
-        btn.disabled=false;fail('Не получилось начать оплату. Проверьте почту и попробуйте ещё раз.');
+        btn.disabled=false;if(x.st===503){note.textContent='Приём оплаты ещё подключается. Попробуйте чуть позже.';note.className='co-note ok';return;}fail('Не получилось начать оплату. Проверьте почту и попробуйте ещё раз.');
       })
       .catch(function(){btn.disabled=false;fail('Нет связи с сервером оплаты. Попробуйте ещё раз чуть позже.');});
   });
