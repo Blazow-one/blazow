@@ -303,17 +303,38 @@ body.lock{overflow:hidden}
 const CONFIG={
   STORE_KEY:'pm.v1',
   FREE_LIMIT:4,          // сколько целей доступно в демо
-  BUY_URL:'#',           // сюда подставим ссылку на оплату (Робокасса)
-  PRICE:'299 ₽',         // цена полной версии
-  SALT:'pm-salt-2026-change-me' // должна совпадать с keygen.js
+  API:'',          // адрес обработчика оплаты и проверки ключей (задаётся в build_site.py, API_BASE)
+  PUB:'',    // открытый ключ проверки лицензии (Ed25519, base64), задаётся в build_site.py
+  PRICE:'299 ₽'                // цена полной версии
 };
 
 /* ================= ЛИЦЕНЗИЯ ================= */
-function h32(s){let h=0x811c9dc5;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,0x01000193)>>>0;}return h>>>0;}
-const ALPH='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-function checkPart(id){let h=h32(id+CONFIG.SALT),o='';for(let i=0;i<4;i++){o+=ALPH[h&31];h>>>=5;}return o;}
 function normKey(k){return String(k||'').toUpperCase().replace(/\s+/g,'');}
-function validKey(k){const m=/^PM-([A-Z2-9]{4})-([A-Z2-9]{4})-([A-Z2-9]{4})$/.exec(normKey(k));return !!m&&checkPart(m[1]+m[2])===m[3];}
+function keyShape(k){return /^PM-[A-Z2-9]{4}-[A-Z2-9]{4}-[A-Z2-9]{4}$/.test(normKey(k));}
+const b64u=s=>Uint8Array.from(atob(String(s).replace(/-/g,'+').replace(/_/g,'/')),c=>c.charCodeAt(0));
+async function sha256hex(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('');}
+/* Ключ проверяет сервер (CONFIG.API + '/verify') и отвечает {ok, token}. res: 'ok' | 'bad' | 'off' (обработчик не подключён) | 'net' (нет связи). */
+async function askServer(k){
+  if(!CONFIG.API)return {res:'off'};
+  try{
+    const r=await fetch(CONFIG.API+'/verify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:normKey(k)})});
+    if(!r.ok)return {res:'net'};
+    const d=await r.json();
+    return d&&d.ok&&d.token?{res:'ok',token:d.token}:{res:'bad'};
+  }catch(e){return {res:'net'};}
+}
+/* Токен лицензии подписан сервером (Ed25519) и привязан к ключу. Проверяем подпись открытым ключом из CONFIG.PUB.
+   Браузер без поддержки Ed25519 принимает сохранённый токен, не проверяя подпись. */
+async function tokenValid(key,token){
+  try{
+    const parts=String(token||'').split('.');if(parts.length!==2)return false;
+    const pl=JSON.parse(new TextDecoder().decode(b64u(parts[0])));
+    if(pl.k!==(await sha256hex(normKey(key))).slice(0,16))return false;
+    if(!CONFIG.PUB)return false;
+    let pk;try{pk=await crypto.subtle.importKey('raw',b64u(CONFIG.PUB),{name:'Ed25519'},false,['verify']);}catch(e){return true;}
+    return await crypto.subtle.verify({name:'Ed25519'},pk,b64u(parts[1]),b64u(parts[0]));
+  }catch(e){return false;}
+}
 
 /* ================= ДАТЫ ================= */
 const pad=n=>String(n).padStart(2,'0');
@@ -393,7 +414,7 @@ ui.weekStart=addDays(today(),-wd(today()));
 
 /* ================= ЛОГИКА ================= */
 const item=id=>state.items.find(i=>i.id===id);
-const isPro=()=>!!state.license&&validKey(state.license);
+const isPro=()=>!!state.license&&!!state.token;   /* лицензия = ключ + подписанный сервером токен; подпись проверяется при запуске (recheckLicense) */
 const isLive=it=>!it.end&&(it.type!=='task'||(it.date||'')>=today());
 const liveItems=()=>state.items.filter(isLive);
 function scheduled(it,d){
@@ -735,21 +756,32 @@ function doImport(){
     save();closeModal();render();toast('Данные загружены');
   }catch(e){ui.modal.err='Не получилось прочитать текст. Скопируйте его целиком из резервной копии.';renderModal(true);}
 }
-function buy(){
-  if(CONFIG.BUY_URL&&CONFIG.BUY_URL!=='#'){window.open(CONFIG.BUY_URL,'_blank','noopener');}
-  else toast('Оплата подключается. Скоро здесь будет кнопка Робокассы.',{ms:3600});
-}
-function activate(src){
+function buy(){location.href='../#buy';}   /* окно покупки находится на странице продукта */
+async function activate(src){
   const v=(($('#'+src)||{}).value)||'';
-  if(validKey(v)){state.license=normKey(v);save();closeModal();render();toast('Полная версия активирована',{kind:'level',ms:3200});}
-  else toast('Ключ не подошёл. Проверьте, что он введён без ошибок.',{ms:3200});
+  if(!keyShape(v)){toast('Ключ не подошёл. Проверьте, что он введён без ошибок.',{ms:3200});return;}
+  const r=await askServer(v);
+  if(r.res==='ok'){
+    if(await tokenValid(v,r.token)){state.license=normKey(v);state.token=r.token;save();closeModal();render();toast('Полная версия активирована',{kind:'level',ms:3200});}
+    else toast('Не удалось подтвердить лицензию. Напишите нам, мы поможем.',{ms:4000});
+  }
+  else if(r.res==='bad')toast('Ключ не подошёл. Проверьте, что он введён без ошибок.',{ms:3200});
+  else if(r.res==='off')toast('Проверка ключей ещё подключается. Попробуйте позже.',{ms:3600});
+  else toast('Нет связи с сервером. Проверьте интернет и попробуйте ещё раз.',{ms:3600});
 }
-function activateFromUrl(){
+async function activateFromUrl(){
   try{
     const q=new URLSearchParams(location.search).get('key')||(/key=([A-Za-z0-9-]+)/.exec(location.hash)||[])[1];
-    if(q&&validKey(q)){state.license=normKey(q);save();try{history.replaceState(null,'',location.pathname);}catch(e){}return true;}
+    if(!q||!keyShape(q))return false;
+    const r=await askServer(q);
+    if(r.res==='ok'&&await tokenValid(q,r.token)){state.license=normKey(q);state.token=r.token;save();try{history.replaceState(null,'',location.pathname);}catch(e){}return true;}
   }catch(e){}
   return false;
+}
+/* При запуске: если токен не прошёл проверку подписи, лицензия снимается. */
+async function recheckLicense(){
+  if(!state.license)return;
+  if(!(await tokenValid(state.license,state.token))){state.license=null;state.token=null;save();render();}
 }
 
 const A={
@@ -770,7 +802,7 @@ const A={
   del(el){const it=item(el.dataset.id);openModal({type:'confirm',title:'Убрать «'+it.name+'»?',text:'Цель исчезнет из списка, а накопленный опыт и история останутся.',yes:'Убрать',act:'del-yes',id:it.id});},
   'del-yes'(el){const it=item(el.dataset.id);if(it){it.end=today();save();}closeModal();render();toast('Цель убрана');},
   reset(){openModal({type:'confirm',title:'Стереть все данные?',text:'Цели, опыт и история будут удалены с этого устройства. Это нельзя отменить.',yes:'Стереть',act:'reset-yes'});},
-  'reset-yes'(){const lic=state.license;state=fresh();state.license=lic;save();closeModal();ui.date=today();render();toast('Всё стёрто');},
+  'reset-yes'(){const lic=state.license,tk=state.token;state=fresh();state.license=lic;state.token=tk;save();closeModal();ui.date=today();render();toast('Всё стёрто');},
   upsell(){openModal({type:'upsell'});},
   buy(){buy();},
   activate(el){activate(el.dataset.src);},
@@ -805,7 +837,8 @@ document.addEventListener('submit',function(e){
 });
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&ui.modal)closeModal();});
 
-if(activateFromUrl()){setTimeout(function(){toast('Полная версия активирована',{kind:'level',ms:3200});},300);}
+recheckLicense();
+activateFromUrl().then(function(ok){if(ok){render();toast('Полная версия активирована',{kind:'level',ms:3200});}});
 render();
 })();
 </script>
