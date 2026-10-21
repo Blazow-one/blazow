@@ -260,7 +260,7 @@ mark{background:var(--accent-soft);color:var(--ink);padding:0 4px;border-radius:
   <div class="wrap cols">
     <div>
       <p>Матрица продуктивности</p>
-      <p style="margin-top:6px">Продавец: Захаров Михаил Андреевич, ИНН <mark>[ИНН]</mark></p>
+      <p style="margin-top:6px">Продавец: Захаров Михаил Андреевич, ИНН 773012880126</p>
     </div>
     <nav aria-label="Документы">
       <a href="../">Все проекты</a>
@@ -340,8 +340,9 @@ mark{background:var(--accent-soft);color:var(--ink);padding:0 4px;border-radius:
   var PRODUCTS={
     matrix:{name:'Матрица продуктивности',price:'299 ₽',desc:'Полная версия приложения, разовый платёж'}
   };
-  /* Адрес обработчика оплаты. Пока пусто: оплата подключается после регистрации в Робокассе. */
-  var PAY_ENDPOINT='';
+  /* Адрес обработчика оплаты. Берётся из API_BASE в build_site.py. Пока пусто: оплата подключается после регистрации в Робокассе. */
+  var API_BASE='';
+  var PAY_ENDPOINT=API_BASE?API_BASE+'/pay':'';
   var el=document.getElementById('co'),form=document.getElementById('co-form'),email=document.getElementById('co-email'),offer=document.getElementById('co-offer'),errEl=document.getElementById('co-err'),note=document.getElementById('co-note'),noteText=note.textContent,prev=null;
   function open(id){
     var p=PRODUCTS[id];if(!p)return;
@@ -362,7 +363,14 @@ mark{background:var(--accent-soft);color:var(--ink);padding:0 4px;border-radius:
     if(!offer.checked){fail('Нужно согласиться с условиями оферты.');return;}
     errEl.hidden=true;
     if(!PAY_ENDPOINT){note.textContent='Приём оплаты ещё подключается. Как только он заработает, здесь откроется страница Робокассы.';note.className='co-note ok';return;}
-    window.location.href=PAY_ENDPOINT+'?product='+encodeURIComponent(form.dataset.product)+'&email='+encodeURIComponent(v);
+    var btn=form.querySelector('.co-pay');btn.disabled=true;
+    fetch(PAY_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({product:form.dataset.product,email:v})})
+      .then(function(r){return r.json().then(function(d){return {ok:r.ok,d:d};});})
+      .then(function(x){
+        if(x.ok&&x.d&&x.d.url){window.location.href=x.d.url;return;}
+        btn.disabled=false;fail('Не получилось начать оплату. Проверьте почту и попробуйте ещё раз.');
+      })
+      .catch(function(){btn.disabled=false;fail('Нет связи с сервером оплаты. Попробуйте ещё раз чуть позже.');});
   });
   document.addEventListener('click',function(e){
     var b=e.target.closest&&e.target.closest('[data-buy]');
@@ -370,6 +378,7 @@ mark{background:var(--accent-soft);color:var(--ink);padding:0 4px;border-radius:
     if(e.target.closest&&e.target.closest('[data-co-close]'))close();
   });
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!el.hidden)close();});
+  if(location.hash==='#buy'){open('matrix');}
 })();
 </script>
 
