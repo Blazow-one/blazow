@@ -4,9 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
+<link rel="icon" href="https://blazow-one.github.io/blazow/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="https://blazow-one.github.io/blazow/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="https://blazow-one.github.io/blazow/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="https://blazow-one.github.io/blazow/apple-touch-icon.png">
+<meta name="theme-color" content="#edf3ee" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#08130d" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://blazow-one.github.io/blazow/matrix/">
 </head>
 <body>
-<title>Матрица продуктивности</title>
+<title>Матрица продуктивности: задачи, привычки и хобби</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Приложение для задач, привычек и хобби: за каждое дело начисляется опыт, растёт уровень и растение. Работает в браузере, демо бесплатно.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -72,11 +79,11 @@ h2{font:600 clamp(24px,4.4vw,34px)/1.18 var(--f-disp);letter-spacing:-.015em;tex
 .band{background:var(--hero-bg);color:var(--hero-ink);padding-block:52px}
 .band h2{color:var(--hero-ink)}
 .band .sub{color:var(--hero-ink-2)}
-.stages{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-top:30px;align-items:end}
+.stages{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:8px;margin-top:30px;align-items:end}
 .stage{text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px}
 .stage svg{width:100%;max-width:120px;height:auto}
 .stage b{font:600 22px/1 var(--f-disp)}
-.stage span{font-size:14px;color:var(--hero-ink-2)}
+.stage span{font-size:13px;color:var(--hero-ink-2);line-height:1.2}
 .pl-soil{fill:rgba(255,255,255,.12)}
 .pl-stem{stroke:var(--leaf);stroke-linecap:round;fill:none}
 .pl-leaf{fill:var(--leaf)}
@@ -161,7 +168,10 @@ mark{background:var(--accent-soft);color:var(--ink);padding:0 4px;border-radius:
     </a>
     <a class="link" href="app/">Открыть приложение</a>
   </header>
+</div>
 
+<main>
+<div class="wrap">
   <section class="hero" id="top" style="padding-top:28px">
     <div>
       <h1>Отмечайте дела.<br>Получайте опыт.<br>Растите.</h1>
@@ -179,7 +189,7 @@ mark{background:var(--accent-soft);color:var(--ink);padding:0 4px;border-radius:
 <div class="band">
   <div class="wrap">
     <h2>Растение растёт вместе с вашим уровнем</h2>
-    <p class="sub">Начинаете с семечка. Цифра под растением показывает уровень, с которого оно вырастает.</p>
+    <p class="sub">Начинаете с семечка. Всего девять этапов: цифра под растением показывает уровень, с которого оно вырастает. В демо растение растёт до второго этапа.</p>
     <div class="stages" id="stages" role="list"></div>
   </div>
 </div>
@@ -213,13 +223,18 @@ mark{background:var(--accent-soft);color:var(--ink);padding:0 4px;border-radius:
         <thead><tr><th scope="col">Возможность</th><th scope="col">Демо</th><th scope="col">Полная</th></tr></thead>
         <tbody>
           <tr><th scope="row">Задачи, привычки, хобби</th><td class="yes">Да</td><td class="yes">Да</td></tr>
-          <tr><th scope="row">Опыт, уровни, серии, растение</th><td class="yes">Да</td><td class="yes">Да</td></tr>
+          <tr><th scope="row">Опыт, уровни и серии</th><td class="yes">Да</td><td class="yes">Да</td></tr>
           <tr><th scope="row">Неделя с матрицей отметок</th><td class="yes">Да</td><td class="yes">Да</td></tr>
-          <tr><th scope="row">Резервная копия данных</th><td class="yes">Да</td><td class="yes">Да</td></tr>
-          <tr><th scope="row">Количество целей</th><td>до 4</td><td class="yes">без ограничений</td></tr>
+          <tr><th scope="row">Количество своих целей</th><td>до 3</td><td class="yes">без ограничений</td></tr>
+          <tr><th scope="row">Рост растения</th><td>2 этапа из 9</td><td class="yes">все 9 этапов</td></tr>
+          <tr><th scope="row">Достижения</th><td>2 из 15</td><td class="yes">все 15</td></tr>
+          <tr><th scope="row">Заморозка серии раз в неделю</th><td class="no">Нет</td><td class="yes">Да</td></tr>
+          <tr><th scope="row">Недельный итог с подсказкой</th><td>только одна цифра</td><td class="yes">Да</td></tr>
           <tr><th scope="row">Календарь месяца и история</th><td class="no">Нет</td><td class="yes">Да</td></tr>
           <tr><th scope="row">График роста уровня</th><td class="no">Нет</td><td class="yes">Да</td></tr>
           <tr><th scope="row">Уровни по каждому навыку</th><td class="no">Нет</td><td class="yes">Да</td></tr>
+          <tr><th scope="row">Резервная копия в файл</th><td class="no">Нет</td><td class="yes">Да</td></tr>
+          <tr><th scope="row">Другие растения и цветовые темы</th><td class="no">Нет</td><td class="yes">Да</td></tr>
         </tbody>
       </table>
     </div>
@@ -231,8 +246,11 @@ mark{background:var(--accent-soft);color:var(--ink);padding:0 4px;border-radius:
         <h2>Полная версия</h2>
         <ul>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg><span>Сколько угодно целей</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg><span>Календарь месяца, графики и уровни навыков</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg><span>Один платёж, без подписки</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg><span>Календарь месяца, графики роста и уровни навыков</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg><span>Достижения, заморозка серии и недельный итог с подсказкой</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg><span>Все 9 этапов роста растения, три растения на выбор и шесть цветовых тем</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg><span>Резервная копия в файл с проверкой при загрузке</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg><span>Один платёж, без подписки: всё перечисленное входит в цену</span></li>
         </ul>
       </div>
       <div class="buybox">
@@ -247,14 +265,15 @@ mark{background:var(--accent-soft);color:var(--ink);padding:0 4px;border-radius:
     <h2>Вопросы</h2>
     <div style="margin-top:24px">
       <details><summary>Нужна ли регистрация?</summary><p>Нет. Открываете страницу и пользуетесь.</p></details>
-      <details><summary>Где хранятся мои данные?</summary><p>Только в браузере на вашем устройстве. Мы их не видим и никуда не отправляем. Если очистить данные сайта в браузере, прогресс пропадёт, поэтому в разделе «Цели» есть резервная копия.</p></details>
-      <details><summary>Работает ли на телефоне и на компьютере?</summary><p>Да, интерфейс подстраивается под экран. Между устройствами данные сами не переносятся, но их можно перенести резервной копией.</p></details>
+      <details><summary>Где хранятся мои данные?</summary><p>Только в браузере на вашем устройстве. Мы их не видим и никуда не отправляем. Если очистить данные сайта в браузере, они пропадут. В полной версии можно сохранить копию в файл и загрузить её обратно.</p></details>
+      <details><summary>Работает ли на телефоне и на компьютере?</summary><p>Да, интерфейс подстраивается под экран. Между устройствами данные сами не переносятся. В полной версии их можно перенести файлом с копией.</p></details>
       <details><summary>Как получить полную версию?</summary><p>После оплаты вы получаете ключ. Вставьте его в приложении на вкладке «Цели», и всё откроется.</p></details>
       <details><summary>Это подписка?</summary><p>Нет, платёж один.</p></details>
       <details><summary>Что, если не подойдёт?</summary><p>Условия возврата описаны на странице <a href="../refund.html">«Возврат»</a>.</p></details>
     </div>
   </section>
 </div>
+</main>
 
 <footer>
   <div class="wrap cols">
@@ -273,26 +292,40 @@ mark{background:var(--accent-soft);color:var(--ink);padding:0 4px;border-radius:
 
 <script>
 (function(){
-  function plant(stage){
-    var hs=[0,18,30,44,56,64][stage],n=[0,1,2,3,3,4][stage];
-    var s='<svg viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="50" cy="90" rx="32" ry="7" class="pl-soil"/>';
-    if(stage===0)return s+'<ellipse cx="50" cy="84" rx="6" ry="4" class="pl-seed"/></svg>';
-    var top=88-hs;
-    s+='<path d="M50 88V'+top+'" class="pl-stem" style="stroke-width:'+(stage>=4?6:4)+'"/>';
-    for(var i=0;i<n;i++){
-      var y=n===1?top+4:86-hs*(0.28+0.62*i/(n-1)),w=stage>=4?8:11;
-      s+='<ellipse class="pl-leaf" cx="'+(50-w)+'" cy="'+y+'" rx="'+w+'" ry="4.5" transform="rotate(-28 '+(50-w)+' '+y+')"/>';
-      s+='<ellipse class="pl-leaf" cx="'+(50+w)+'" cy="'+(y-4)+'" rx="'+w+'" ry="4.5" transform="rotate(28 '+(50+w)+' '+(y-4)+')"/>';
-    }
-    if(stage>=4){
-      s+='<circle class="pl-crown d" cx="36" cy="'+(top+8)+'" r="13"/><circle class="pl-crown d" cx="64" cy="'+(top+8)+'" r="13"/><circle class="pl-crown" cx="50" cy="'+(top-2)+'" r="'+(stage===5?20:17)+'"/>';
-      if(stage===5)s+='<circle class="pl-crown" cx="30" cy="'+(top+16)+'" r="9"/><circle class="pl-crown" cx="70" cy="'+(top+16)+'" r="9"/>';
-    }
-    return s+'</svg>';
+const R1=n=>Math.round(n*10)/10;
+const SEED='<ellipse cx="50" cy="84" rx="6" ry="4" class="pl-seed"/>';
+function pStem(x,y1,y2,w){return '<path d="M'+x+' '+y1+'V'+y2+'" class="pl-stem" style="stroke-width:'+w+'"/>';}
+function pLeaves(x,y,w,rot){return '<ellipse class="pl-leaf" cx="'+R1(x-w)+'" cy="'+R1(y)+'" rx="'+w+'" ry="'+R1(w*0.42)+'" transform="rotate(-'+rot+' '+R1(x-w)+' '+R1(y)+')"/><ellipse class="pl-leaf" cx="'+R1(x+w)+'" cy="'+R1(y-3)+'" rx="'+w+'" ry="'+R1(w*0.42)+'" transform="rotate('+rot+' '+R1(x+w)+' '+R1(y-3)+')"/>';}
+/* дерево */
+function crownBits(top,st){
+  const C=(x,y,r,d)=>'<circle class="pl-crown'+(d?' d':'')+'" cx="'+x+'" cy="'+y+'" r="'+r+'"/>';
+  if(st===4)return C(50,top-1,11);
+  if(st===5)return C(38,top+7,10,1)+C(62,top+7,10,1)+C(50,top-3,14);
+  if(st===6)return C(33,top+9,12,1)+C(67,top+9,12,1)+C(50,top-4,17);
+  return C(29,top+12,13,1)+C(71,top+12,13,1)+C(40,top,13,1)+C(60,top,13,1)+C(50,top-6,17)+C(50,top+9,8);
+}
+function bigTree(st){
+  const hs=[0,0,0,0,50,54,58,60,60][st],w=[0,0,0,0,5,6,8,8,8][st],top=88-hs;
+  let s=pStem(50,88,top,w);
+  s+=pLeaves(50,88-hs*0.35,9,28);
+  if(st>=5)s+=pLeaves(50,88-hs*0.58,8,28);
+  return s+crownBits(top,st);
+}
+function treeP(st){
+  if(st===0)return SEED;
+  if(st<=3){
+    const hs=[0,18,30,44][st],n=[0,1,2,3][st],top=88-hs;
+    let s=pStem(50,88,top,4);
+    for(let i=0;i<n;i++){const y=n===1?top+4:86-hs*(0.28+0.62*i/(n-1));s+=pLeaves(50,y,11,28);}
+    return s;
   }
-  var R=[[1,'Семечко',0],[2,'Росток',1],[4,'Побег',2],[7,'Саженец',3],[10,'Дерево',4],[15,'Роща',5]];
+  if(st<8)return bigTree(st);
+  const small=(x,h)=>pStem(x,88,88-h,3)+'<circle class="pl-crown d" cx="'+x+'" cy="'+(88-h-3)+'" r="8"/><circle class="pl-crown" cx="'+(x+3)+'" cy="'+(88-h-6)+'" r="6"/>';
+  return small(14,22)+small(86,26)+small(28,14)+small(72,16)+'<g transform="translate(50 88) scale(.74) translate(-50 -88)">'+bigTree(7)+'</g>';
+}
+  var LV=[1,2,3,5,7,9,11,13,15],NAMES=['Семечко','Росток','Побег','Саженец','Молодое дерево','Дерево','Крепкое дерево','Крона','Роща'];
   var box=document.getElementById('stages');
-  box.innerHTML=R.map(function(r){return '<div class="stage" role="listitem">'+plant(r[2])+'<b>'+r[0]+'</b><span>'+r[1]+'</span></div>';}).join('');
+  box.innerHTML=NAMES.map(function(n,i){return '<div class="stage" role="listitem"><svg viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="50" cy="90" rx="34" ry="7" class="pl-soil"/>'+treeP(i)+'</svg><b>'+LV[i]+'</b><span>'+n+'</span></div>';}).join('');
 })();
 </script>
 
