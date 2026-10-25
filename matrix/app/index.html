@@ -4,9 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
+<link rel="icon" href="https://blazow-one.github.io/blazow/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="https://blazow-one.github.io/blazow/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="https://blazow-one.github.io/blazow/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="https://blazow-one.github.io/blazow/apple-touch-icon.png">
+<meta name="theme-color" content="#edf3ee" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#08130d" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://blazow-one.github.io/blazow/matrix/app/">
 </head>
 <body>
-<title>Матрица продуктивности</title>
+<title>Матрица продуктивности: демо</title>
+<meta name="description" content="Демо приложения «Матрица продуктивности»: задачи, привычки и хобби с опытом, уровнями и растением. Работает в браузере.">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Unbounded:wght@500;600&display=swap">
@@ -15,8 +23,8 @@
    ниже спокойные списки на светлом фоне. Единственный акцент — зелёный, XP — янтарный. */
 :root{
   --bg:#edf3ee; --bg-glow:#dcebe0; --surface:#fbfdfb; --surface-2:#e6efe8; --ink:#11261a; --ink-2:#4a6253; --line:#d3dfd5;
-  --accent:#12803f; --on-accent:#ffffff; --leaf:#3bbf7c; --on-leaf:#062414; --accent-soft:#d4eedd;
-  --xp:#a86a00; --xp-soft:#fbecc8; --danger:#b3361f;
+  --accent:#0d7436; --on-accent:#ffffff; --leaf:#3bbf7c; --on-leaf:#062414; --accent-soft:#d4eedd;
+  --xp:#8a5600; --xp-soft:#fbecc8; --danger:#b3361f;
   --hero-bg:#0e3a25; --hero-ink:#eaf7ee; --hero-ink-2:#a8cdb5; --hero-track:rgba(255,255,255,.16);
   --shadow:0 1px 2px rgba(17,38,26,.06),0 10px 28px rgba(17,38,26,.08);
   --f-body:"Onest",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
@@ -96,7 +104,7 @@ h1,h2,h3,p{margin:0}
 .dp-top b{font-weight:600}
 .xpchip{font-weight:700;color:var(--xp);background:var(--xp-soft);border-radius:99px;padding:3px 10px;font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap}
 .bar{height:8px;border-radius:99px;background:var(--surface-2);overflow:hidden}
-.bar i{display:block;height:100%;border-radius:99px;background:var(--leaf);transition:width .35s}
+.bar i{display:block;height:100%;border-radius:99px;background:var(--bar,var(--leaf));transition:width .35s}
 .bar.big{height:12px}
 
 /* группы и строки */
@@ -138,7 +146,7 @@ h1,h2,h3,p{margin:0}
 .addrow{margin-top:16px;display:flex;justify-content:center}
 
 /* навигация */
-.nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom,0px));width:min(560px,calc(100% - 24px - env(safe-area-inset-left,0px) - env(safe-area-inset-right,0px)));z-index:20;display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:22px;padding:6px;box-shadow:var(--shadow)}
+.nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom,0px));width:min(560px,calc(100% - 24px - env(safe-area-inset-left,0px) - env(safe-area-inset-right,0px)));z-index:20;display:grid;grid-template-columns:repeat(6,1fr);gap:2px;background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:22px;padding:6px;box-shadow:var(--shadow)}
 .nav button{position:relative;border:0;background:transparent;border-radius:16px;padding:8px 2px 6px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11.5px;font-weight:600;color:var(--ink-2)}
 .nav button.on{background:var(--accent-soft);color:var(--accent)}
 .nav button .lk{position:absolute;top:4px;right:calc(50% - 20px);width:12px;height:12px;color:var(--xp)}
@@ -256,6 +264,79 @@ input:focus,textarea:focus{border-color:var(--accent);outline:none;box-shadow:0 
 .warn{background:var(--xp-soft);color:var(--ink);border-radius:14px;padding:10px 14px;font-size:14px;margin-bottom:12px}
 .foot{margin-top:28px;text-align:center;font-size:12.5px;color:var(--ink-2)}
 
+/* ранги, награды, заморозка, разбор недели, оформление */
+.rankstrip{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.rk{display:inline-flex;align-items:center;gap:5px;border-radius:99px;padding:4px 10px;font-size:12.5px;font-weight:600;background:var(--accent-soft);color:var(--accent)}
+.rk.lock{background:var(--surface-2);color:var(--ink-2)}
+.rk .ic{width:12px;height:12px;stroke-width:3}
+.frz{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-top:12px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:10px 14px;font-size:14px}
+.frz .ic,.frzn .ic{width:18px;height:18px;color:#4f9fd6;flex:none}
+.frz>span{flex:1 1 200px;min-width:0}
+.frz .btn{min-height:38px;padding:0 14px;font-size:14px}
+.frz.on{background:var(--accent-soft);border-color:transparent}
+.frzn{display:flex;gap:8px;align-items:flex-start}
+.wday .wx .ic{width:12px;height:12px;color:#4f9fd6;vertical-align:-2px}
+.ach-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.ach{display:flex;gap:10px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:12px;min-width:0}
+.ach .bdg{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;flex:none;background:var(--accent);color:var(--on-accent)}
+.ach .bdg .ic{width:22px;height:22px;stroke-width:2.4}
+.ach.off .bdg{background:var(--surface-2);color:var(--ink-2)}
+.ach b{display:block;font-size:14.5px;line-height:1.2;overflow-wrap:anywhere}
+.ach.off b{color:var(--ink-2)}
+.ach .d{display:block;font-size:12.5px;color:var(--ink-2);margin-top:3px}
+.ach .got{display:block;font-size:12px;font-weight:700;color:var(--accent);margin-top:4px}
+.ach .got.soft{color:var(--ink-2);font-weight:600}
+.rep{display:flex;flex-direction:column;gap:12px}
+.rep .big{font:600 22px/1.2 var(--f-disp);font-variant-numeric:tabular-nums}
+.rep h4{margin:0 0 4px;font:600 13.5px/1.2 var(--f-body);color:var(--ink-2)}
+.rep ul{margin:0;padding-left:20px;font-size:14.5px}
+.rep .tip{background:var(--accent-soft);border-radius:14px;padding:10px 14px;font-size:14.5px}
+.rep .tip b{display:block;font-size:12.5px;color:var(--accent);margin-bottom:2px}
+.sk{display:flex;flex-direction:column;gap:10px;filter:blur(3px);opacity:.75;pointer-events:none;user-select:none}
+.sk i{display:block;height:14px;border-radius:8px;background:var(--surface-2)}
+.lockline{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:14px}
+.lockline .ic{width:18px;height:18px;color:var(--xp)}
+.lockline span{flex:1 1 200px}
+.calm{margin-top:20px;display:flex;flex-direction:column;gap:6px;align-items:flex-start;font-size:14.5px;color:var(--ink-2)}
+.calm p{margin:0}
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.opt{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;background:var(--surface);border:1.5px solid var(--line);border-radius:16px;padding:10px 12px;min-width:0}
+.opt.on{border-color:var(--accent);background:var(--accent-soft)}
+.opt b{font-size:14.5px}
+.opt small{font-size:12.5px;color:var(--ink-2);display:flex;gap:4px;align-items:center;line-height:1.3}
+.opt small .ic{width:13px;height:13px;flex:none}
+.opt.lock{opacity:.7}
+.opt .pv{display:block;width:100%;height:60px}
+.opt .pv .plant{width:60px;height:60px}
+.opt .pl-soil{fill:var(--surface-2)}
+.sws{display:flex;gap:6px;margin-bottom:2px}
+.sws i{display:block;width:22px;height:22px;border-radius:50%;border:2px solid var(--surface)}
+.btn.locked{opacity:.8}
+.btn .ic{width:18px;height:18px}
+.pl-petal{fill:#f2c230}
+.pl-core{fill:#7a4a12}
+.pl-bloom{fill:#f4a6c3}
+.pl-bamb{stroke:var(--leaf);stroke-linecap:round;fill:none}
+.pl-node{stroke:#2a9f62;stroke-width:2;stroke-linecap:round}
+.pl-cact{fill:var(--leaf)}
+.pl-cact.d{fill:#2a9f62}
+.pl-spine{stroke:#e9f7ef;stroke-width:1.3;stroke-linecap:round}
+.pl-rib{stroke:#2a9f62;stroke-width:1.4;opacity:.7;fill:none}
+.stcap{font-size:13px;color:var(--hero-ink-2);margin-top:2px;line-height:1.3}
+.optgrp{font-size:12.5px;font-weight:700;color:var(--ink-2);margin:8px 0 2px}
+.nav button{letter-spacing:-.01em}@media (max-width:430px){.nav button{font-size:10.5px}}@media (max-width:340px){.ach-grid,.opts{grid-template-columns:1fr}}
+
+/* темы оформления: в полной версии. Светлые: Зелёная (основная), Песочная, Молочная. Тёмные: Лес, Графит, Тёплый уголь. */
+:root[data-pal="sunset"]{--bg:#f8efe6;--bg-glow:#f3dcc6;--surface:#fffaf5;--surface-2:#f2e6d9;--ink:#2a1a0e;--ink-2:#6b5340;--line:#e6d5c3;--accent:#a64612;--leaf:#9bc34a;--on-leaf:#1c2a05;--accent-soft:#f6dcc4;--hero-bg:#5a2a10;--hero-ink-2:#e6c3a6}
+:root[data-pal="milk"]{--bg:#f7f4ee;--bg-glow:#efe9df;--surface:#fffdf9;--surface-2:#eee9df;--ink:#231f1a;--ink-2:#5f574c;--line:#e0d9cc;--accent:#1f7a46;--bar:#27855a;--leaf:#4fb383;--on-leaf:#06241a;--accent-soft:#e3efe4;--hero-bg:#112f22;--hero-ink-2:#bcd5c6}
+:root[data-pal="pine"],:root[data-pal="graphite"],:root[data-pal="coal"]{--on-accent:#05210f;--xp:#f0b94a;--xp-soft:#3a2e0e;--danger:#ff8a72;--hero-ink:#eaf7ee;--hero-track:rgba(255,255,255,.14);--shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px rgba(0,0,0,.35);color-scheme:dark}
+:root[data-pal="pine"]{--bg:#08130d;--bg-glow:#0f2a1b;--surface:#102017;--surface-2:#18301f;--ink:#e5f4ea;--ink-2:#98b6a3;--line:#233f2e;--accent:#4bd68a;--leaf:#3ecf7a;--on-leaf:#05210f;--accent-soft:#1a4a2e;--hero-bg:#0c3322;--hero-ink-2:#a1c8af}
+:root[data-pal="graphite"]{--bg:#121417;--bg-glow:#1d2127;--surface:#1a1d22;--surface-2:#242830;--ink:#e8eaee;--ink-2:#a3a9b3;--line:#2f343d;--accent:#8fd3b0;--on-accent:#0c1f16;--leaf:#5fc592;--on-leaf:#07261a;--accent-soft:#223a2f;--hero-bg:#232a31;--hero-ink:#eef1f4;--hero-ink-2:#aab3bd}
+:root[data-pal="coal"]{--bg:#15110e;--bg-glow:#241b14;--surface:#1e1814;--surface-2:#2a221b;--ink:#f3e9df;--ink-2:#bba593;--line:#3a2f26;--accent:#e6a35c;--on-accent:#2a1403;--leaf:#a9cf55;--on-leaf:#1c2a05;--accent-soft:#4a3320;--xp:#f0c060;--xp-soft:#3a2e12;--hero-bg:#2f2218;--hero-ink:#f8eee4;--hero-ink-2:#d2b8a0}
+@media (prefers-color-scheme: dark){
+  :root[data-pal="sunset"]:not([data-theme="light"]){--bg:#17100a;--bg-glow:#2a1a0e;--surface:#21170f;--surface-2:#2d2015;--ink:#f7eadd;--ink-2:#c3a88f;--line:#3d2c1d;--accent:#f4a35e;--on-accent:#2a1403;--leaf:#a9cf55;--on-leaf:#1c2a05;--accent-soft:#4a2c14;--hero-bg:#3c1f0d;--hero-ink-2:#e0bf9f}
+  :root[data-pal="milk"]:not([data-theme="light"]){--bar:var(--leaf);--bg:#141311;--bg-glow:#201e1a;--surface:#1c1a17;--surface-2:#27241f;--ink:#f1ede6;--ink-2:#b2aa9c;--line:#35312a;--accent:#6fd09a;--on-accent:#06210f;--leaf:#4fbf86;--on-leaf:#06241a;--accent-soft:#1f3a2b;--hero-bg:#1d3a2c;--hero-ink-2:#a9cdb8}
+}
 /* окна */
 #modal{position:fixed;inset:0;z-index:50;display:none}
 #modal.open{display:flex;align-items:flex-end;justify-content:center}
@@ -292,6 +373,7 @@ body.lock{overflow:hidden}
 </div>
 <nav class="nav" id="nav" aria-label="Разделы"></nav>
 <div id="modal"></div>
+<input type="file" id="bkfile" accept=".json,application/json" hidden>
 <div id="toasts" aria-live="polite"></div>
 <noscript>Для работы приложения нужен JavaScript.</noscript>
 
@@ -302,7 +384,7 @@ body.lock{overflow:hidden}
 /* ================= НАСТРОЙКИ ================= */
 const CONFIG={
   STORE_KEY:'pm.v1',
-  FREE_LIMIT:4,          // сколько целей доступно в демо
+  FREE_LIMIT:3,          // сколько своих целей доступно в демо
   API:'https://blazow-pay.ll5247066.workers.dev',          // адрес обработчика оплаты и проверки ключей (задаётся в build_site.py, API_BASE)
   PUB:'VWVPkwLBOWP8oRXxHEjwMI80GDyuuE50lhgB5MFf16c=',    // открытый ключ проверки лицензии (Ed25519, base64), задаётся в build_site.py
   PRICE:'299 ₽'                // цена полной версии
@@ -372,6 +454,11 @@ const P={
   trash:'<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>',
   x:'<path d="M6 6l12 12M18 6L6 18"/>',
   plus:'<path d="M12 5v14M5 12h14"/>',
+  ach:'<path d="M8 4h8v5a4 4 0 01-8 0V4zM8 6H4v1a3 3 0 003 3M16 6h4v1a3 3 0 01-3 3M12 13v4M8 20h8M10 17h4"/>',
+  star:'<path d="M12 3l2.600 5.600 6.100.7-4.500 4.200 1.200 6L12 16.500 6.600 19.500l1.200-6L3.300 9.300l6.100-.7z"/>',
+  snow:'<path d="M12 3v18M4.500 7.500l15 9M19.500 7.500l-15 9"/>',
+  leaf:'<path d="M5 19c0-8 5-13 14-14 0 9-5 14-14 14zM5 19l7-7"/>',
+  down:'<path d="M12 4v10m0 0l-4-4m4 4l4-4M5 20h14"/>',
   flame:'<path d="M12 3c1 3.500 5 5.500 5 10a5 5 0 01-10 0c0-2 1-3.500 2-4.500.2 1.500 1 2.500 2 2.500 0-3-1-5 1-8z" fill="currentColor"/>'
 };
 const ic=n=>'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+P[n]+'</svg>';
@@ -390,16 +477,15 @@ const TPL=[
   {name:'Отложить деньги',icon:'💰',type:'habit',count:false,xp:20}
 ];
 const ALLDAYS=[0,1,2,3,4,5,6];
-const RANKS=[[1,'Семечко',0],[2,'Росток',1],[4,'Побег',2],[7,'Саженец',3],[10,'Дерево',4],[15,'Роща',5]];
 const G=25, IK=10;
 
 function mkItem(o){return Object.assign({id:uid(),name:'',icon:'⭐',type:'habit',unit:'',target:1,step:1,xp:10,days:ALLDAYS.slice(),date:null,created:today(),end:null},o);}
 function fresh(){
   const t=today();
   return {v:1,created:t,license:null,logs:{},items:[
-    mkItem({name:'Читать',icon:'📚',type:'hobby',unit:'стр.',target:10,step:5,xp:2}),
-    mkItem({name:'Выпить воду',icon:'💧',type:'habit',xp:10}),
-    mkItem({name:'Зарядка',icon:'🏃',type:'habit',xp:15})
+    mkItem({name:'Читать',icon:'📚',type:'hobby',unit:'стр.',target:10,step:5,xp:2,demo:true}),
+    mkItem({name:'Выпить воду',icon:'💧',type:'habit',xp:10,demo:true}),
+    mkItem({name:'Зарядка',icon:'🏃',type:'habit',xp:15,demo:true})
   ]};
 }
 let storageOk=true;
@@ -409,6 +495,373 @@ function sane(o){return o&&Array.isArray(o.items)&&o.logs&&typeof o.logs==='obje
 let state=(function(){const r=readStore();return sane(r)?r:fresh();})();
 state.created=state.created||today();
 
+/* ================= ДОПОЛНИТЕЛЬНЫЕ ДАННЫЕ (ключ pm.v2) =================
+   Награды, заморозки серии и выбор оформления лежат в отдельном ключе: основные данные (pm.v1) не затрагиваются.
+   Всё из этого блока, кроме двух простых наград, работает только в полной версии. */
+const META_KEY='pm.v2';
+const DATE_RE=/^\d{4}-\d{2}-\d{2}$/;
+/* Растения: у каждого свои названия этапов (тексты Марии), 9 этапов. Уровень, с которого начинается этап 1..9: финал на 15-м уровне. */
+const STAGE_LV=[1,2,3,5,7,9,11,13,15];
+const STAGES={
+  classic:[['Семечко','Первое дело посажено в землю.'],['Росток','Из семени показался первый зелёный лист.'],['Побег','Тонкий стебель тянется вверх.'],['Саженец','Ствол окреп, появились первые ветки.'],['Молодое дерево','Корни уходят глубже, крона начинает расти.'],['Дерево','Ствол стал толще, листвы стало больше.'],['Крепкое дерево','Ветви широкие, дерево выдерживает ветер.'],['Крона','Густая листва даёт тень и защиту.'],['Роща','Вокруг растёт целая роща.']],
+  flower:[['Семя','Семя ждёт тепла и внимания.'],['Росток','Первые листочки пробиваются к свету.'],['Первый лист','Лист раскрылся, стебель стал крепче.'],['Стебель','Стебель растёт прямо и уверенно.'],['Бутон','На стебле показался бутон.'],['Раскрытие','Лепестки начинают распускаться.'],['Цветение','Цветок полностью раскрылся.'],['Полный цвет','Яркие лепестки привлекают внимание.'],['Клумба','Цветы выросли целой клумбой.']],
+  bamboo:[['Корневище','Под землёй формируется крепкая основа.'],['Росток','Первый побег пробивается наверх.'],['Побег','Побег тянется вверх очень быстро.'],['Первое колено','На стебле появился первый узел.'],['Стебель','Стебель вытянулся и стал прямым.'],['Высокий стебель','Стебель поднимается выше остальных.'],['Заросли','Рядом выросло ещё несколько стеблей.'],['Крона листьев','Наверху появилась густая листва.'],['Бамбуковая роща','Стебли сплелись в целую рощу.']],
+  cactus:[['Семя','Семя спокойно ждёт своего часа.'],['Проросток','Первый крошечный стебелёк показался из земли.'],['Первые иглы','На стебле появились первые иглы.'],['Молодой кактус','Растение округлилось и окрепло.'],['Ребро','На стебле видны первые рёбра жёсткости.'],['Бутон','Кактус готовится к цветению.'],['Цветение','Яркий цветок раскрылся на верхушке.'],['Зрелый кактус','Растение взрослое и устойчивое.'],['Колония','Вокруг выросло много кактусов.']]
+};
+const PLANTS=[
+  {id:'classic',name:'Классическое',text:'Привычное растение: от семечка до рощи.'},
+  {id:'flower',name:'Цветок',text:'От семени до целой клумбы.'},
+  {id:'bamboo',name:'Бамбук',text:'От корневища до бамбуковой рощи.'},
+  {id:'cactus',name:'Кактус',text:'От семени до колонии кактусов.'}
+];
+/* Светлые темы: Зелёная (основная), Песочная, Молочная. Тёмные: Лес, Графит, Тёплый уголь (всегда тёмные, независимо от настройки телефона). */
+const PALS=[
+  {id:'forest',name:'Зелёная',dark:false,text:'Спокойный зелёный фон, как в основной версии.',sw:['#0d7436','#3bbf7c','#edf3ee']},
+  {id:'sunset',name:'Песочная',dark:false,text:'Тёплый песочный фон с мягким контрастом.',sw:['#a64612','#9bc34a','#f8efe6']},
+  {id:'milk',name:'Молочная',dark:false,text:'Нейтральный молочный фон, почти белый, с тёплым оттенком.',sw:['#1f7a46','#4fb383','#f7f4ee']},
+  {id:'pine',name:'Лес',dark:true,text:'Тёмно-зелёный фон, продолжает основную зелёную тему.',sw:['#4bd68a','#3ecf7a','#0c3322']},
+  {id:'graphite',name:'Графит',dark:true,text:'Холодный тёмно-серый фон, спокойный для вечера.',sw:['#8fd3b0','#5fc592','#232a31']},
+  {id:'coal',name:'Тёплый уголь',dark:true,text:'Тёмно-коричневый фон с мягким тёплым оттенком.',sw:['#e6a35c','#a9cf55','#2f2218']}
+];
+const ACH=[
+  {id:'first',name:'Первое дело',desc:'Вы отметили первое дело. Всё начинается с этого.',ic:'check',demo:true,test:c=>c.xp>0},
+  {id:'day',name:'Полный день',desc:'Все дела дня выполнены (в дне не меньше двух дел).',ic:'today',test:c=>c.perfectDay},
+  {id:'s3',name:'Три дня подряд',desc:'Вы отмечали дела три дня подряд. Так начинается привычка.',ic:'flame',demo:true,test:c=>c.best>=3,prog:c=>[c.best,3,'дн.']},
+  {id:'s7',name:'Неделя без перерыва',desc:'Семь дней подряд. Серия видна на экране.',ic:'flame',test:c=>c.best>=7,prog:c=>[c.best,7,'дн.']},
+  {id:'s14',name:'Две недели',desc:'Четырнадцать дней подряд. Вы держите ритм.',ic:'flame',test:c=>c.best>=14,prog:c=>[c.best,14,'дн.']},
+  {id:'s30',name:'Месяц в деле',desc:'Тридцать дней подряд. Это заметно.',ic:'flame',test:c=>c.best>=30,prog:c=>[c.best,30,'дн.']},
+  {id:'l5',name:'Пять уровней',desc:'Вы добрались до пятого уровня.',ic:'growth',test:c=>c.L>=5,prog:c=>[c.L,5,'ур.']},
+  {id:'l10',name:'Уровень 10',desc:'Достигните общего уровня 10.',ic:'growth',test:c=>c.L>=10,prog:c=>[c.L,10,'ур.']},
+  {id:'l15',name:'Роща',desc:'Дорастите до 15-го уровня: растение доходит до последнего этапа.',ic:'leaf',test:c=>c.L>=15,prog:c=>[c.L,15,'ур.']},
+  {id:'x100',name:'100 XP',desc:'Наберите 100 XP.',ic:'star',test:c=>c.xp>=100,prog:c=>[c.xp,100,'XP']},
+  {id:'x500',name:'500 XP',desc:'Наберите 500 XP.',ic:'star',test:c=>c.xp>=500,prog:c=>[c.xp,500,'XP']},
+  {id:'x1000',name:'1000 XP',desc:'Наберите 1000 XP.',ic:'star',test:c=>c.xp>=1000,prog:c=>[c.xp,1000,'XP']},
+  {id:'x5000',name:'5000 XP',desc:'Наберите 5000 XP.',ic:'star',test:c=>c.xp>=5000,prog:c=>[c.xp,5000,'XP']},
+  {id:'wk',name:'Неделя без пропусков',desc:'Все запланированные дела выполнены в каждом дне целой недели (в неделе не меньше трёх дней с делами).',ic:'week',test:c=>c.perfectWeek},
+  {id:'t3',name:'Разнообразие',desc:'Вы выполнили хотя бы раз задачу, привычку и хобби.',ic:'goals',test:c=>c.types>=3,prog:c=>[c.types,3,'']}
+];
+const ACH_IDS=ACH.map(a=>a.id);
+function freshMeta(){return {v:2,ach:{},freeze:{},plant:'classic',pal:'forest'};}
+function cleanMeta(o){
+  const m=freshMeta();if(!o||typeof o!=='object')return m;
+  if(o.ach&&typeof o.ach==='object'){for(const k in o.ach){const v=o.ach[k];if(ACH_IDS.indexOf(k)>=0&&typeof v==='string'&&(DATE_RE.test(v)||v==='earlier'))m.ach[k]=v;}}
+  if(o.freeze&&typeof o.freeze==='object'){for(const k in o.freeze){if(DATE_RE.test(k)&&o.freeze[k]===true)m.freeze[k]=true;}}
+  if(PLANTS.some(p=>p.id===o.plant))m.plant=o.plant;
+  if(PALS.some(p=>p.id===o.pal))m.pal=o.pal;
+  return m;
+}
+let metaFresh=false;
+function readMeta(){try{const r=localStorage.getItem(META_KEY);if(r)return cleanMeta(JSON.parse(r));}catch(e){}metaFresh=true;return freshMeta();}
+function saveMeta(){try{localStorage.setItem(META_KEY,JSON.stringify(meta));}catch(e){}}
+let meta=readMeta();
+
+const wkOf=d=>addDays(d,-wd(d));
+const isFrozen=d=>isPro()&&!!meta.freeze[d];
+function freezeInWeek(d){const w=wkOf(d);for(const k in meta.freeze){if(wkOf(k)===w)return k;}return null;}
+const effPlant=()=>isPro()?meta.plant:'classic';
+function applyPal(){const p=isPro()?meta.pal:'forest';if(document.documentElement.getAttribute('data-pal')!==p)document.documentElement.setAttribute('data-pal',p);}
+function stageIdx(L){let s=0;STAGE_LV.forEach((v,i)=>{if(L>=v)s=i;});return s;}
+/* Этап для главного экрана: в демо растение стоит на 2-м этапе, дальше этапы закрыты */
+function heroRank(L){const full=stageIdx(L),st=isPro()?full:Math.min(full,1),d=STAGES[effPlant()][st];return {name:d[0],cap:d[1],stage:st};}
+
+/* ---- награды ---- */
+function achCtx(){
+  const t=today(),ds=dayStreak(),types={},weeks={};
+  let perfectDay=false;
+  for(const d in state.logs){
+    if(d>t)continue;
+    const f=dayInfo(d);
+    if(f.total>=2&&f.done===f.total)perfectDay=true;
+    f.list.forEach(it=>{if(isDone(it,d))types[it.type]=1;});
+    weeks[wkOf(d)]=1;
+  }
+  let perfectWeek=false;
+  for(const w in weeks){
+    if(addDays(w,6)>t)continue;
+    let n=0,ok=true;
+    for(let i=0;i<7;i++){const f=dayInfo(addDays(w,i));if(f.total){n++;if(f.done<f.total)ok=false;}}
+    if(ok&&n>=3)perfectWeek=true;
+  }
+  return {xp:S.total,L:lvl(S.total,G).L,best:ds.best,cur:ds.cur,perfectDay,perfectWeek,types:Object.keys(types).length};
+}
+/* Записывает новые награды. silent: старые заслуги при первом запуске помечаются «получено ранее» без всплывашек. */
+function syncAch(silent){
+  const c=achCtx(),out=[];let ch=false;
+  ACH.forEach(a=>{if(!meta.ach[a.id]&&a.test(c)){meta.ach[a.id]=silent?'earlier':today();out.push(a);ch=true;}});
+  if(ch)saveMeta();
+  return out;
+}
+function achCard(a,c,pro){
+  const got=meta.ach[a.id],open=pro||a.demo;
+  let h='<div class="ach '+(open&&got?'':'off')+'"><div class="bdg" aria-hidden="true">'+ic(a.ic)+'</div><div><b>'+esc(a.name)+'</b>';
+  if(open){
+    h+='<span class="d">'+esc(a.desc)+'</span>';
+    if(got)h+='<span class="got">'+(got==='earlier'?'Получено ранее':'Получено '+fmtDate(got))+'</span>';
+    else if(a.prog){const p=a.prog(c);h+='<span class="got soft">Сейчас '+Math.min(p[0],p[1])+' из '+p[1]+(p[2]?' '+p[2]:'')+'</span>';}
+  }else{
+    h+='<span class="d">В полной версии</span>';
+    if(got)h+='<span class="got soft">Уже заработано</span>';
+  }
+  return h+'</div></div>';
+}
+function viewAch(){
+  const pro=isPro(),c=achCtx();
+  const have=ACH.filter(a=>meta.ach[a.id]&&(pro||a.demo)).length,total=pro?ACH.length:ACH.filter(a=>a.demo).length;
+  let h='<div class="wnav"><b style="text-align:left">Достижения</b><span class="muted">'+have+' из '+total+(pro?'':' в демо')+'</span></div>';
+  h+='<div class="ach-grid">'+ACH.map(a=>achCard(a,c,pro)).join('')+'</div>';
+  if(!pro)h+='<div class="card lockline" style="margin-top:14px">'+ic('lock')+'<span>Достижения доступны в полной версии. Полная версия — '+CONFIG.PRICE+' разово. В демо открыты две награды: «Первое дело» и «Три дня подряд».</span><button class="btn" data-act="upsell">Открыть полную версию, '+CONFIG.PRICE+'</button></div>';
+  return h;
+}
+
+/* ---- заморозка серии (раз в неделю) ---- */
+function freezeUi(d){
+  if(!isPro()||d>today())return '';
+  if(meta.freeze[d])return '<div class="frz on">'+ic('snow')+'<span>День заморожен: серия сохранена.</span><button class="link" data-act="unfreeze">Снять</button></div>';
+  if((S.dayXp[d]||0)>0)return '';
+  const used=freezeInWeek(d);
+  if(used)return '<p class="note frzn">'+ic('snow')+'<span>Заморозку можно использовать раз в неделю: на этой неделе она уже использована ('+fmtDate(used)+'). Новая будет доступна с понедельника.</span></p>';
+  return '<div class="frz">'+ic('snow')+'<span>Раз в неделю можно пропустить один день, и серия не сбросится. Пригодится, когда день выбился из ритма.</span><button class="btn ghost" data-act="freeze">Заморозить день</button></div>';
+}
+
+/* ---- разбор недели ---- */
+function weekData(ws){
+  const t=today(),days=[0,1,2,3,4,5,6].map(i=>addDays(ws,i)).filter(d=>d<=t),items={};
+  let done=0,total=0,xp=0,active=0;const perDay=[];
+  days.forEach(d=>{
+    const f=dayInfo(d);done+=f.done;total+=f.total;xp+=f.xp;if(f.xp>0)active++;
+    if(f.total)perDay.push({d,done:f.done,total:f.total});
+    f.list.forEach(it=>{const o=items[it.id]||(items[it.id]={it,s:0,dn:0});o.s++;if(isDone(it,d))o.dn++;});
+  });
+  return {days,items,done,total,xp,active,perDay};
+}
+function weekTip(w,pct){
+  const list=Object.keys(w.items).map(k=>w.items[k]);
+  const zero=list.filter(o=>o.s>=2&&o.dn===0);
+  if(zero.length)return 'Дело «'+zero[0].it.name+'» на этой неделе не отмечалось ни разу. Поставьте цель поменьше или оставьте его на меньшее число дней.';
+  if(w.perDay.length>=2){
+    let worst=null;w.perDay.forEach(x=>{const p=x.done/x.total;if(!worst||p<worst.p)worst={p,x};});
+    if(worst&&worst.p<0.6)return 'Меньше всего дел выполнено в день «'+DOWF[wd(worst.x.d)].toLowerCase()+'» ('+worst.x.done+' из '+worst.x.total+'). Запланируйте на этот день меньше или поставьте главное дело на утро.';
+  }
+  if(pct>=90)return 'Почти всё выполнено. Если хочется большего, добавьте одно небольшое дело, но не больше.';
+  return 'Ритм хороший. Чтобы серия не прерывалась, отмечайте дела в тот же день.';
+}
+function weekReportHtml(ws){
+  const w=weekData(ws),pro=isPro();
+  if(!pro){
+    return '<div class="sec"><h3>Недельный итог</h3><div class="card rep">'+
+      (w.total?'<div class="big">'+w.done+' из '+w.total+'</div><span class="muted">дел сделано на этой неделе</span>':'<span class="muted">Пока нет дел с отметками на этой неделе.</span>')+
+      '<div class="sk" aria-hidden="true"><i style="width:55%"></i><i style="width:80%"></i><i style="width:70%"></i><i style="width:90%"></i></div>'+
+      '<div class="lockline">'+ic('lock')+'<span>Недельный итог доступен в полной версии. Полная версия — '+CONFIG.PRICE+' разово. В нём: что сделано, лучшие привычки, что просело и подсказка на неделю.</span><button class="btn ghost" data-act="upsell">Что входит</button></div></div></div>';
+  }
+  if(!w.total)return '<div class="sec"><h3>Недельный итог</h3><div class="card rep"><span class="muted">Пока нет данных: отметьте несколько дел, и здесь появится разбор.</span></div></div>';
+  const pct=Math.round(100*w.done/w.total),list=Object.keys(w.items).map(k=>w.items[k]);
+  const best=list.filter(o=>o.dn>0).sort((a,b)=>(b.dn/b.s-a.dn/a.s)||(b.s-a.s)).slice(0,2);
+  const prev=weekData(addDays(ws,-7)),slipped=[];
+  list.forEach(o=>{const q=prev.items[o.it.id];if(q&&q.s>=2&&o.s>=2){const a=Math.round(100*q.dn/q.s),b=Math.round(100*o.dn/o.s);if(a-b>=25)slipped.push({it:o.it,a,b});}});
+  slipped.sort((x,y)=>(y.a-y.b)-(x.a-x.b));
+  let h='<div class="sec"><h3>Недельный итог</h3><div class="card rep"><div><div class="big">'+w.done+' из '+w.total+'</div><span class="muted">дел сделано ('+pct+'%), активных дней: '+w.active+' из '+w.days.length+', '+w.xp+' XP</span></div>';
+  h+='<div><h4>Лучшие привычки</h4>'+(best.length?'<ul>'+best.map(o=>'<li>'+esc(o.it.icon)+' '+esc(o.it.name)+': '+o.dn+' из '+o.s+'</li>').join('')+'</ul>':'<span class="muted">Пока нет выполненных дел.</span>')+'</div>';
+  h+='<div><h4>Что просело</h4>'+(slipped.length?'<ul>'+slipped.slice(0,2).map(x=>'<li>'+esc(x.it.icon)+' '+esc(x.it.name)+': было '+x.a+'%, стало '+x.b+'%</li>').join('')+'</ul>':'<span class="muted">Заметных просадок по сравнению с прошлой неделей нет.</span>')+'</div>';
+  h+='<div class="tip"><b>Подсказка на неделю</b>'+esc(weekTip(w,pct))+'</div></div></div>';
+  return h;
+}
+
+/* ---- растения: 9 простых рисунков на каждое (цвет берётся из темы) ---- */
+const R1=n=>Math.round(n*10)/10;
+const SEED='<ellipse cx="50" cy="84" rx="6" ry="4" class="pl-seed"/>';
+function pStem(x,y1,y2,w){return '<path d="M'+x+' '+y1+'V'+y2+'" class="pl-stem" style="stroke-width:'+w+'"/>';}
+function pLeaves(x,y,w,rot){return '<ellipse class="pl-leaf" cx="'+R1(x-w)+'" cy="'+R1(y)+'" rx="'+w+'" ry="'+R1(w*0.42)+'" transform="rotate(-'+rot+' '+R1(x-w)+' '+R1(y)+')"/><ellipse class="pl-leaf" cx="'+R1(x+w)+'" cy="'+R1(y-3)+'" rx="'+w+'" ry="'+R1(w*0.42)+'" transform="rotate('+rot+' '+R1(x+w)+' '+R1(y-3)+')"/>';}
+function plantSvg(kind,st){
+  const body={classic:treeP,flower:flowerP,bamboo:bambooP,cactus:cactusP}[kind]||treeP;
+  return '<svg class="plant" viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="50" cy="90" rx="34" ry="7" class="pl-soil"/>'+body(st)+'</svg>';
+}
+/* дерево */
+function crownBits(top,st){
+  const C=(x,y,r,d)=>'<circle class="pl-crown'+(d?' d':'')+'" cx="'+x+'" cy="'+y+'" r="'+r+'"/>';
+  if(st===4)return C(50,top-1,11);
+  if(st===5)return C(38,top+7,10,1)+C(62,top+7,10,1)+C(50,top-3,14);
+  if(st===6)return C(33,top+9,12,1)+C(67,top+9,12,1)+C(50,top-4,17);
+  return C(29,top+12,13,1)+C(71,top+12,13,1)+C(40,top,13,1)+C(60,top,13,1)+C(50,top-6,17)+C(50,top+9,8);
+}
+function bigTree(st){
+  const hs=[0,0,0,0,50,54,58,60,60][st],w=[0,0,0,0,5,6,8,8,8][st],top=88-hs;
+  let s=pStem(50,88,top,w);
+  s+=pLeaves(50,88-hs*0.35,9,28);
+  if(st>=5)s+=pLeaves(50,88-hs*0.58,8,28);
+  return s+crownBits(top,st);
+}
+function treeP(st){
+  if(st===0)return SEED;
+  if(st<=3){
+    const hs=[0,18,30,44][st],n=[0,1,2,3][st],top=88-hs;
+    let s=pStem(50,88,top,4);
+    for(let i=0;i<n;i++){const y=n===1?top+4:86-hs*(0.28+0.62*i/(n-1));s+=pLeaves(50,y,11,28);}
+    return s;
+  }
+  if(st<8)return bigTree(st);
+  const small=(x,h)=>pStem(x,88,88-h,3)+'<circle class="pl-crown d" cx="'+x+'" cy="'+(88-h-3)+'" r="8"/><circle class="pl-crown" cx="'+(x+3)+'" cy="'+(88-h-6)+'" r="6"/>';
+  return small(14,22)+small(86,26)+small(28,14)+small(72,16)+'<g transform="translate(50 88) scale(.74) translate(-50 -88)">'+bigTree(7)+'</g>';
+}
+/* цветок */
+function bloom(cx,cy,n,pr,pd,cr){
+  let s='';
+  for(let i=0;i<n;i++){const a=i*2*Math.PI/n-Math.PI/2;s+='<circle class="pl-petal" cx="'+R1(cx+pd*Math.cos(a))+'" cy="'+R1(cy+pd*Math.sin(a))+'" r="'+pr+'"/>';}
+  return s+'<circle class="pl-core" cx="'+cx+'" cy="'+cy+'" r="'+cr+'"/>';
+}
+function flowerP(st){
+  if(st===0)return SEED;
+  if(st===8){
+    const one=(x,h,pr,pd,cr)=>pStem(x,88,88-h,4)+pLeaves(x,88-h*0.45,8,28)+bloom(x,88-h-4,8,pr,pd,cr);
+    return one(24,34,5,8,4.5)+one(76,38,5,8,4.5)+one(50,54,6.5,11,6);
+  }
+  const H=[0,12,22,36,46,52,56,58][st],top=88-H;
+  let s=pStem(50,88,top,4);
+  if(st===1)return s+pLeaves(50,top+4,6,25);
+  if(st===2)return s+pLeaves(50,top+10,9,28);
+  s+=pLeaves(50,88-H*0.3,10,28)+pLeaves(50,88-H*0.6,9,28);
+  if(st===3)return s;
+  if(st===4)return s+'<ellipse class="pl-crown" cx="50" cy="'+(top-4)+'" rx="5" ry="7"/><ellipse class="pl-petal" cx="50" cy="'+(top-9)+'" rx="2.5" ry="3"/>';
+  if(st===5)return s+bloom(50,top-5,5,4.5,6,3);
+  if(st===6)return s+bloom(50,top-6,7,6,9.5,5);
+  return s+bloom(50,top-7,8,7,12,6.5);
+}
+/* бамбук */
+function bStem(x,h,w,leaves){
+  let s='<line class="pl-bamb" x1="'+x+'" y1="88" x2="'+x+'" y2="'+(88-h)+'" style="stroke-width:'+w+'"/>';
+  for(let y=88-12;y>88-h+4;y-=13)s+='<line class="pl-node" x1="'+(x-w/2-1)+'" y1="'+y+'" x2="'+(x+w/2+1)+'" y2="'+y+'"/>';
+  if(leaves)s+='<ellipse class="pl-leaf" cx="'+(x+8)+'" cy="'+(88-h+3)+'" rx="8" ry="3.4" transform="rotate(-25 '+(x+8)+' '+(88-h+3)+')"/><ellipse class="pl-leaf" cx="'+(x-8)+'" cy="'+(88-h+9)+'" rx="8" ry="3.4" transform="rotate(25 '+(x-8)+' '+(88-h+9)+')"/><ellipse class="pl-leaf" cx="'+(x+1)+'" cy="'+(88-h-2)+'" rx="6" ry="3" transform="rotate(-70 '+(x+1)+' '+(88-h-2)+')"/>';
+  return s;
+}
+function bambooP(st){
+  if(st===0)return '<ellipse cx="50" cy="85" rx="13" ry="3.6" class="pl-seed"/><path d="M38 87q-6 3-11 1M62 87q6 3 11 1" class="pl-node" fill="none"/>';
+  if(st===1)return bStem(50,12,5,false);
+  if(st===2)return bStem(50,26,5,false)+'<ellipse class="pl-crown" cx="50" cy="'+(88-28)+'" rx="3" ry="5"/>';
+  if(st===3)return bStem(50,36,5,false);
+  if(st===4)return bStem(50,48,6,false);
+  if(st===5)return bStem(50,64,6,false);
+  if(st===6)return bStem(40,46,5,false)+bStem(60,52,5,false)+bStem(50,64,6,false);
+  if(st===7)return bStem(40,46,5,true)+bStem(60,52,5,true)+bStem(50,64,6,true);
+  return bStem(24,38,5,true)+bStem(76,34,5,true)+bStem(34,52,5,true)+bStem(66,48,5,true)+bStem(44,64,6,true)+bStem(56,58,6,true);
+}
+/* кактус */
+function cBody(x,h,w,o){
+  const top=88-h,r=w/2;
+  let s='';
+  if(o.arms){
+    const ay=88-h*0.5;
+    s+='<rect class="pl-cact d" x="'+(x-w/2-11)+'" y="'+R1(ay-15)+'" width="10" height="22" rx="5"/><rect class="pl-cact d" x="'+(x-w/2-6)+'" y="'+R1(ay+2)+'" width="'+(w/2+8)+'" height="8" rx="4"/>';
+    const by=88-h*0.65;
+    s+='<rect class="pl-cact d" x="'+(x+w/2+1)+'" y="'+R1(by-13)+'" width="10" height="20" rx="5"/><rect class="pl-cact d" x="'+(x)+'" y="'+R1(by+1)+'" width="'+(w/2+8)+'" height="8" rx="4"/>';
+  }
+  s+='<rect class="pl-cact" x="'+(x-r)+'" y="'+top+'" width="'+w+'" height="'+h+'" rx="'+r+'"/>';
+  if(o.ribs)for(const dx of [-w/4,0,w/4])s+='<line class="pl-rib" x1="'+R1(x+dx)+'" y1="'+(top+r)+'" x2="'+R1(x+dx)+'" y2="86"/>';
+  if(o.spines)for(let i=0;i<o.spines;i++){const yy=top+r+i*((h-r-6)/o.spines);s+='<line class="pl-spine" x1="'+(x-r+1)+'" y1="'+R1(yy)+'" x2="'+(x-r-2)+'" y2="'+R1(yy-2)+'"/><line class="pl-spine" x1="'+(x+r-1)+'" y1="'+R1(yy+4)+'" x2="'+(x+r+2)+'" y2="'+R1(yy+2)+'"/>';}
+  if(o.bud)s+='<circle class="pl-bloom" cx="'+x+'" cy="'+(top-1)+'" r="3.5"/>';
+  if(o.flower)s+='<circle class="pl-bloom" cx="'+x+'" cy="'+(top-2)+'" r="6.5"/><circle class="pl-seed" cx="'+x+'" cy="'+(top-2)+'" r="2.5"/>';
+  return s;
+}
+function cactusP(st){
+  if(st===0)return SEED;
+  if(st===1)return '<rect class="pl-cact" x="48" y="76" width="4" height="12" rx="2"/>';
+  if(st===2)return cBody(50,16,14,{spines:2});
+  if(st===3)return cBody(50,28,18,{spines:3});
+  if(st===4)return cBody(50,36,18,{spines:3,ribs:1});
+  if(st===5)return cBody(50,42,18,{ribs:1,bud:1});
+  if(st===6)return cBody(50,42,18,{ribs:1,flower:1});
+  if(st===7)return cBody(50,52,18,{ribs:1,arms:1,flower:1});
+  return cBody(18,24,12,{ribs:1})+cBody(82,30,12,{ribs:1,bud:1})+cBody(32,16,10,{spines:2})+'<g transform="translate(50 88) scale(.78) translate(-50 -88)">'+cBody(50,52,18,{ribs:1,arms:1,flower:1})+'</g>';
+}
+
+function rankStrip(){
+  if(isPro())return '';
+  const k=effPlant(),S9=STAGES[k];
+  return '<div class="rankstrip" aria-label="Этапы роста растения">'+S9.map((x,i)=>i<=1?'<span class="rk">'+ic('check')+x[0]+'</span>':'<span class="rk lock">'+ic('lock')+x[0]+'</span>').join('')+'</div><p class="note">Дальше растение растёт в полной версии: всего 9 этапов, от «'+S9[0][0]+'» до «'+S9[8][0]+'». Полная версия — '+CONFIG.PRICE+' разово, оплата на сайте. Опыт и уровень считаются и в демо.</p>';
+}
+function calmBackup(){
+  if(isPro())return '';
+  const days=Object.keys(S.dayXp).filter(d=>S.dayXp[d]>0).length;
+  if(days<3&&S.total<100)return '';
+  return '<div class="calm"><p>Данные хранятся только в этом браузере. В полной версии можно сохранить копию в файл.</p><button class="link" data-act="upsell">Что входит в полную версию</button></div>';
+}
+
+/* ---- оформление ---- */
+function appearSec(){
+  const pro=isPro();
+  let h='<div class="sec"><h3>Оформление</h3><div class="card"><p class="note" style="margin-top:0">'+(pro?'Выберите растение и цветовую тему.':'Выбор растений и тем доступен в полной версии. Полная версия — '+CONFIG.PRICE+' разово. Выбор не меняет, как считаются опыт и уровни: растения растут вместе с уровнем.')+'</p>';
+  h+='<div class="fld"><span>Растение</span><div class="opts" role="radiogroup" aria-label="Растение">'+PLANTS.map(p=>{
+    const on=(pro?meta.plant:'classic')===p.id,lock=!pro&&p.id!=='classic';
+    return '<button class="opt'+(on?' on':'')+(lock?' lock':'')+'" data-act="plant" data-v="'+p.id+'" role="radio" aria-checked="'+on+'" aria-label="'+esc(p.name)+(lock?', только в полной версии':'')+'"><span class="pv">'+plantSvg(p.id,6)+'</span><b>'+esc(p.name)+'</b><small>'+(lock?ic('lock')+'В полной версии':esc(p.text))+'</small></button>';
+  }).join('')+'</div></div>';
+  const grp=(title,list)=>'<div class="optgrp">'+title+'</div><div class="opts" role="radiogroup" aria-label="'+title+'">'+list.map(p=>{
+    const on=(pro?meta.pal:'forest')===p.id,lock=!pro&&p.id!=='forest';
+    return '<button class="opt'+(on?' on':'')+(lock?' lock':'')+'" data-act="pal" data-v="'+p.id+'" role="radio" aria-checked="'+on+'" aria-label="'+esc(p.name)+(lock?', только в полной версии':'')+'"><span class="sws" aria-hidden="true">'+p.sw.map(c=>'<i style="background:'+c+'"></i>').join('')+'</span><b>'+esc(p.name)+'</b><small>'+(lock?ic('lock')+'В полной версии':esc(p.text))+'</small></button>';
+  }).join('')+'</div>';
+  h+='<div class="fld"><span>Цветовая тема</span>'+grp('Светлые',PALS.filter(p=>!p.dark))+grp('Тёмные',PALS.filter(p=>p.dark))+'</div>';
+  return h+'</div></div>';
+}
+
+/* ---- резервная копия ---- */
+function buildBackup(){return {app:'matrix-productivity',format:2,exported:new Date().toISOString(),created:state.created,items:state.items,logs:state.logs,meta:{ach:meta.ach,freeze:meta.freeze,plant:meta.plant,pal:meta.pal}};}
+/* Проверяет и очищает текст копии. Возвращает {err} или готовые данные; ничего не меняет в текущих данных. */
+function parseBackup(text){
+  if(typeof text!=='string'||!text.trim())return {err:'Файл пустой.'};
+  if(text.length>3000000)return {err:'Файл слишком большой для резервной копии.'};
+  let o;try{o=JSON.parse(text);}catch(e){return {err:'Это не файл резервной копии: текст не удалось прочитать.'};}
+  if(!o||typeof o!=='object'||!Array.isArray(o.items)||!o.logs||typeof o.logs!=='object'||Array.isArray(o.logs))return {err:'В файле нет целей или истории. Нужна копия, сохранённая в этом приложении.'};
+  if(o.items.length>500)return {err:'В файле слишком много целей.'};
+  const num=(v,lo,hi,def)=>{v=Math.round(+v);return isFinite(v)&&v>=lo&&v<=hi?v:def;};
+  const dt=v=>typeof v==='string'&&DATE_RE.test(v)?v:null;
+  const map={},used={},items=[];
+  for(const r of o.items){
+    if(!r||typeof r!=='object')return {err:'В файле повреждены данные о целях.'};
+    const name=typeof r.name==='string'?r.name.trim().slice(0,60):'';
+    if(!name||['task','habit','hobby'].indexOf(r.type)<0)return {err:'В файле повреждены данные о целях.'};
+    let id=(typeof r.id==='string'&&/^[A-Za-z0-9_-]{1,40}$/.test(r.id)&&!used[r.id])?r.id:uid();
+    used[id]=1;if(typeof r.id==='string'&&id===r.id)map[r.id]=id;
+    let days=Array.isArray(r.days)?r.days.filter((x,i,a)=>Number.isInteger(x)&&x>=0&&x<=6&&a.indexOf(x)===i).sort():ALLDAYS.slice();
+    if(r.type!=='task'&&!days.length)days=ALLDAYS.slice();
+    const unit=typeof r.unit==='string'?r.unit.trim().slice(0,10):'';
+    const it={id,name,icon:(typeof r.icon==='string'&&r.icon&&r.icon.length<=8)?r.icon:'⭐',type:r.type,unit,target:num(r.target,1,99999,1),step:num(r.step,1,99999,1),xp:num(r.xp,1,100000,10),days,date:dt(r.date),created:dt(r.created)||today(),end:dt(r.end)};
+    if(it.type==='task'&&!it.date)it.date=it.created;
+    if(r.demo===true)it.demo=true;
+    items.push(it);
+  }
+  const logs={};let nDays=0,cnt=0;
+  for(const d in o.logs){
+    if(!DATE_RE.test(d)||!o.logs[d]||typeof o.logs[d]!=='object')continue;
+    const day={};
+    for(const k in o.logs[d]){if(!map[k])continue;const v=Math.round(+o.logs[d][k]);if(isFinite(v)&&v>0&&v<=99999){day[k]=v;if(++cnt>200000)return {err:'В файле слишком много записей.'};}}
+    if(Object.keys(day).length){logs[d]=day;nDays++;}
+  }
+  return {items,logs,created:dt(o.created)||today(),meta:o.meta?cleanMeta(o.meta):null,nItems:items.length,nDays};
+}
+function downloadBackup(){
+  const blob=new Blob([JSON.stringify(buildBackup(),null,1)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='matrix-productivity-'+today()+'.json';
+  document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},500);
+  toast('Файл с данными сохранён');
+}
+async function pickFile(inp){
+  const f=inp.files&&inp.files[0];inp.value='';
+  if(!f||!isPro())return;
+  if(f.size>3000000){toast('Файл слишком большой для резервной копии',{ms:4000});return;}
+  let text;try{text=await f.text();}catch(e){toast('Не удалось прочитать файл',{ms:3200});return;}
+  const p=parseBackup(text);
+  if(p.err){toast(p.err,{ms:4500});return;}
+  ui.pending=p;openModal({type:'restore'});
+}
+function applyRestore(){
+  const p=ui.pending;if(!p||!isPro())return;
+  try{localStorage.setItem('pm.v1.prev',JSON.stringify({items:state.items,logs:state.logs,created:state.created,saved:today()}));}catch(e){}
+  state.items=p.items;state.logs=p.logs;state.created=p.created;
+  if(p.meta){meta=p.meta;}else{meta.ach={};meta.freeze={};}
+  ui.pending=null;save();saveMeta();S=compute();syncAch(true);closeModal();ui.date=today();render();toast('Данные загружены');
+}
+function backupSec(){
+  if(!isPro())return '<div class="sec"><h3>Резервная копия</h3><div class="card"><p class="note" style="margin-top:0">Резервная копия доступна в полной версии. Полная версия — '+CONFIG.PRICE+' разово. Сохраните данные в файл и загрузите его обратно, если меняете браузер или устройство.</p><div class="rowbtn"><button class="btn ghost locked" data-act="upsell">'+ic('lock')+'Сохранить копию</button><button class="btn ghost locked" data-act="upsell">'+ic('lock')+'Загрузить из файла</button></div></div></div>';
+  return '<div class="sec"><h3>Резервная копия</h3><div class="card"><p class="note" style="margin-top:0">Сохраните свои данные в файл и загрузите его обратно, если меняете браузер или устройство. При загрузке файл проверяется, перед заменой вы увидите, что в нём.</p><div class="rowbtn"><button class="btn ghost" data-act="dl">'+ic('down')+'Сохранить копию</button><button class="btn ghost" data-act="ldfile">Загрузить из файла</button></div><p class="note"><button class="link" data-act="export">Скопировать текстом</button> &nbsp; <button class="link" data-act="import">Вставить текст</button></p></div></div>';
+}
+
 const ui={tab:'today',date:today(),weekStart:null,month:monthStart(today()),range:30,modal:null,draft:null};
 ui.weekStart=addDays(today(),-wd(today()));
 
@@ -417,6 +870,7 @@ const item=id=>state.items.find(i=>i.id===id);
 const isPro=()=>!!state.license&&!!state.token;   /* лицензия = ключ + подписанный сервером токен; подпись проверяется при запуске (recheckLicense) */
 const isLive=it=>!it.end&&(it.type!=='task'||(it.date||'')>=today());
 const liveItems=()=>state.items.filter(isLive);
+const ownItems=()=>liveItems().filter(i=>!i.demo);   /* свои дела: примеры из демо в лимит не входят */
 function scheduled(it,d){
   if(it.end&&d>=it.end)return false;
   if(it.type==='task')return it.date===d;
@@ -434,7 +888,6 @@ function compute(){
   return {dayXp,itemXp,total};
 }
 function lvl(xp,k){const L=Math.max(1,Math.floor((1+Math.sqrt(1+4*xp/k))/2));const cur=k*L*(L-1),next=k*(L+1)*L;return {L,cur,next,into:xp-cur,need:next-cur,pct:(xp-cur)/(next-cur)};}
-function rankOf(L){let r=RANKS[0];for(const x of RANKS){if(L>=x[0])r=x;}return {name:r[1],stage:r[2]};}
 function dayInfo(d){const list=state.items.filter(it=>scheduled(it,d));let done=0;list.forEach(it=>{if(isDone(it,d))done++;});return {list,done,total:list.length,pct:list.length?done/list.length:0,xp:S.dayXp[d]||0};}
 function streakOf(it){
   if(it.type==='task')return {cur:0,best:0};
@@ -445,7 +898,12 @@ function streakOf(it){
 function dayStreak(){
   const t=today();let first=state.created;for(const d in S.dayXp){if(d<first)first=d;}
   let run=0,best=0,d=first;
-  while(d<=t){if((S.dayXp[d]||0)>0){run++;if(run>best)best=run;}else if(d!==t){run=0;}d=addDays(d,1);}
+  while(d<=t){
+    if((S.dayXp[d]||0)>0){run++;if(run>best)best=run;}
+    else if(isFrozen(d)){/* день заморожен: серия сохраняется и не растёт */}
+    else if(d!==t){run=0;}
+    d=addDays(d,1);
+  }
   return {cur:run,best};
 }
 
@@ -459,36 +917,19 @@ function setAmount(d,id,val){
   if(!Object.keys(state.logs[d]).length)delete state.logs[d];
   save();
   S=compute();
+  const newAch=syncAch();
   const gain=S.total-before;
   const g0=lvl(before,G).L,g1=lvl(S.total,G).L;
   const i0=lvl(bItem,IK).L,i1=lvl(S.itemXp[id]||0,IK).L;
   render();
-  if(g1>g0){toast('Новый уровень: '+g1+', '+rankOf(g1).name,{kind:'level',ms:3800});}
+  if(g1>g0){toast('Новый уровень: '+g1+', '+heroRank(g1).name,{kind:'level',ms:3800});}
   else if(i1>i0){toast(it.name+': уровень '+i1,{kind:'level',ms:3200});}
   else if(gain>0){toast('+'+gain+' XP',{key:'xp',kind:'xp',ms:1400});}
   else if(gain<0){toast(gain+' XP',{key:'xp',ms:1400});}
+  newAch.filter(a=>isPro()||a.demo).forEach(a=>toast('Достижение: «'+a.name+'»',{kind:'level',ms:3800}));
 }
 
 /* ================= ВЕРСТКА ================= */
-function plant(stage){
-  const hs=[0,18,30,44,56,64][stage],n=[0,1,2,3,3,4][stage];
-  let s='<svg class="plant" viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="50" cy="90" rx="32" ry="7" class="pl-soil"/>';
-  if(stage===0)return s+'<ellipse cx="50" cy="84" rx="6" ry="4" class="pl-seed"/></svg>';
-  const top=88-hs;
-  s+='<path d="M50 88V'+top+'" class="pl-stem" style="stroke-width:'+(stage>=4?6:4)+'"/>';
-  for(let i=0;i<n;i++){
-    const y=n===1?top+4:86-hs*(0.28+0.62*i/(n-1));
-    const w=stage>=4?8:11;
-    s+='<ellipse class="pl-leaf" cx="'+(50-w)+'" cy="'+y+'" rx="'+w+'" ry="4.500" transform="rotate(-28 '+(50-w)+' '+y+')"/>';
-    s+='<ellipse class="pl-leaf" cx="'+(50+w)+'" cy="'+(y-4)+'" rx="'+w+'" ry="4.500" transform="rotate(28 '+(50+w)+' '+(y-4)+')"/>';
-  }
-  if(stage>=4){
-    s+='<circle class="pl-crown d" cx="36" cy="'+(top+8)+'" r="13"/><circle class="pl-crown d" cx="64" cy="'+(top+8)+'" r="13"/><circle class="pl-crown" cx="50" cy="'+(top-2)+'" r="'+(stage===5?20:17)+'"/>';
-    if(stage===5)s+='<circle class="pl-crown" cx="30" cy="'+(top+16)+'" r="9"/><circle class="pl-crown" cx="70" cy="'+(top+16)+'" r="9"/>';
-  }
-  return s+'</svg>';
-}
-
 function barChart(data){
   const w=320,h=150,pl=6,pr=6,pt=18,pb=22,max=Math.max(10,...data.map(x=>x.v)),bw=(w-pl-pr)/data.length;
   let s='<svg class="chart" viewBox="0 0 '+w+' '+h+'" role="img" aria-label="Опыт по дням недели"><line class="axis" x1="'+pl+'" x2="'+(w-pr)+'" y1="'+(h-pb)+'" y2="'+(h-pb)+'"/>';
@@ -531,14 +972,16 @@ function itemRow(it,d){
 }
 
 function viewToday(){
-  const d=ui.date,t=today(),info=dayInfo(d),g=lvl(S.total,G),rk=rankOf(g.L),ds=dayStreak(),isT=d===t;
+  const d=ui.date,t=today(),info=dayInfo(d),g=lvl(S.total,G),rk=heroRank(g.L),ds=dayStreak(),isT=d===t;
   let h='';
   if(!storageOk)h+='<div class="warn">Браузер не разрешает сохранять данные. Прогресс пропадёт после закрытия вкладки.</div>';
-  h+='<section class="hero" aria-label="Ваш уровень">'+plant(rk.stage)+'<div><div class="lvl-row"><span class="lvl-num">'+g.L+'</span><span class="lvl-lab">уровень</span></div><div class="rank">'+rk.name+'</div><div class="xpbar"><i style="width:'+Math.round(g.pct*100)+'%"></i></div><div class="xptext">'+g.into+' из '+g.need+' XP до уровня '+(g.L+1)+'</div></div>';
+  h+='<section class="hero" aria-label="Ваш уровень">'+plantSvg(effPlant(),rk.stage)+'<div><div class="lvl-row"><span class="lvl-num">'+g.L+'</span><span class="lvl-lab">уровень</span></div><div class="rank">'+rk.name+'</div><div class="stcap">'+esc(rk.cap)+'</div><div class="xpbar"><i style="width:'+Math.round(g.pct*100)+'%"></i></div><div class="xptext">'+g.into+' из '+g.need+' XP до уровня '+(g.L+1)+'</div></div>';
   h+='<div class="streakline"><span class="chip">'+ic('flame')+(ds.cur>0?'Серия '+ds.cur+' '+plural(ds.cur,['день','дня','дней']):'Начните серию сегодня')+'</span><span class="chip">Всего '+S.total+' XP</span></div></section>';
+  h+=rankStrip();
   h+='<div class="datenav"><button class="ib" data-act="day" data-v="-1" aria-label="Предыдущий день">'+ic('left')+'</button><div class="dn-mid"><b>'+(isT?'Сегодня':DOWF[wd(d)])+'</b><span>'+fmtDate(d)+'</span></div><button class="ib" data-act="day" data-v="1" aria-label="Следующий день">'+ic('right')+'</button></div>';
   if(!isT)h+='<div class="backrow"><button class="link" data-act="gotoday">Вернуться к сегодняшнему дню</button></div>';
   h+='<div class="dayprog"><div class="dp-top"><b>'+(info.total?info.done+' из '+info.total+' выполнено':'На этот день ничего не запланировано')+'</b><span class="xpchip">+'+info.xp+' XP</span></div><div class="bar big"><i style="width:'+Math.round(info.pct*100)+'%"></i></div></div>';
+  h+=freezeUi(d);
   if(d>t)h+='<p class="note">Это будущий день: отметки откроются, когда он наступит.</p>';
   const groups=[['task','Задачи'],['habit','Привычки'],['hobby','Хобби']];
   groups.forEach(g2=>{
@@ -550,6 +993,7 @@ function viewToday(){
     h+='<div class="card empty" style="margin-top:18px"><b>Пока пусто</b><span class="muted">Добавьте задачу, привычку или хобби, и за каждое выполнение будет капать опыт.</span></div>';
   }
   h+='<div class="addrow"><button class="btn" data-act="add">'+ic('plus')+'Добавить цель</button></div>';
+  h+=calmBackup();
   return h;
 }
 
@@ -557,7 +1001,8 @@ function viewWeek(){
   const ws=ui.weekStart,t=today(),days=[0,1,2,3,4,5,6].map(i=>addDays(ws,i));
   const infos=days.map(dayInfo);
   let h='<div class="wnav"><button class="ib" data-act="wk" data-v="-1" aria-label="Прошлая неделя">'+ic('left')+'</button><b>'+fmtShort(days[0])+' – '+fmtShort(days[6])+'</b><button class="ib" data-act="wk" data-v="1" aria-label="Следующая неделя">'+ic('right')+'</button></div>';
-  h+='<div class="wgrid">'+days.map((d,i)=>{const f=infos[i];return '<button class="wday'+(d===t?' today':'')+'" data-act="open" data-v="'+d+'" aria-label="'+DOWF[i]+', '+fmtDate(d)+'"><span class="dw">'+DOW[i]+'</span><span class="dn">'+parse(d).getDate()+'</span><span class="ring" style="--p:'+Math.round(f.pct*100)+'"><span>'+Math.round(f.pct*100)+'%</span></span><span class="wx">'+(f.xp?'+'+f.xp:'')+'&nbsp;</span></button>';}).join('')+'</div>';
+  h+='<div class="wgrid">'+days.map((d,i)=>{const f=infos[i];return '<button class="wday'+(d===t?' today':'')+'" data-act="open" data-v="'+d+'" aria-label="'+DOWF[i]+', '+fmtDate(d)+'"><span class="dw">'+DOW[i]+'</span><span class="dn">'+parse(d).getDate()+'</span><span class="ring" style="--p:'+Math.round(f.pct*100)+'"><span>'+Math.round(f.pct*100)+'%</span></span><span class="wx">'+(f.xp?'+'+f.xp:(isFrozen(d)?ic('snow'):''))+'&nbsp;</span></button>';}).join('')+'</div>';
+  h+=weekReportHtml(ws);
   const rows=state.items.filter(it=>days.some(d=>scheduled(it,d)));
   h+='<div class="sec"><h3>Матрица недели</h3>';
   if(rows.length){
@@ -573,7 +1018,7 @@ function viewWeek(){
   }else h+='<div class="card empty"><span class="muted">На этой неделе нет целей.</span></div>';
   h+='</div>';
   let sx=0,dn=0,tot=0,perfect=0;infos.forEach(f=>{sx+=f.xp;dn+=f.done;tot+=f.total;if(f.total&&f.done===f.total)perfect++;});
-  h+='<div class="sec"><h3>Итоги недели</h3><div class="stats"><div class="stat"><b>'+sx+'</b><span>XP за неделю</span></div><div class="stat"><b>'+dn+' из '+tot+'</b><span>выполнено</span></div><div class="stat"><b>'+perfect+'</b><span>'+plural(perfect,['идеальный день','идеальных дня','идеальных дней'])+'</span></div><div class="stat"><b>'+(tot?Math.round(100*dn/tot):0)+'%</b><span>выполнение</span></div></div></div>';
+  h+='<div class="sec"><h3>Цифры недели</h3><div class="stats"><div class="stat"><b>'+sx+'</b><span>XP за неделю</span></div><div class="stat"><b>'+dn+' из '+tot+'</b><span>выполнено</span></div><div class="stat"><b>'+perfect+'</b><span>'+plural(perfect,['идеальный день','идеальных дня','идеальных дней'])+'</span></div><div class="stat"><b>'+(tot?Math.round(100*dn/tot):0)+'%</b><span>выполнение</span></div></div></div>';
   h+='<div class="sec"><h3>Опыт по дням</h3><div class="card">'+barChart(days.map((d,i)=>({l:DOW[i],v:infos[i].xp,today:d===t})))+'</div></div>';
   return h;
 }
@@ -633,21 +1078,22 @@ function viewGoals(){
   const live=liveItems(),pro=isPro();
   let h='';
   if(!storageOk)h+='<div class="warn">Браузер не разрешает сохранять данные. Прогресс пропадёт после закрытия вкладки.</div>';
-  h+='<div class="wnav"><b style="text-align:left">Мои цели</b><span class="muted">'+live.length+(pro?'':' из '+CONFIG.FREE_LIMIT)+'</span></div>';
+  h+='<div class="wnav"><b style="text-align:left">Мои цели</b><span class="muted">'+(pro?live.length:ownItems().length+' из '+CONFIG.FREE_LIMIT)+'</span></div>';
   if(live.length){
     h+='<div class="group">'+live.map(it=>'<div class="goal"><div class="ico" aria-hidden="true">'+esc(it.icon)+'</div><div><div class="nm">'+esc(it.name)+'</div><div class="meta">'+goalMeta(it)+'</div></div><div class="acts"><button class="ib" data-act="edit" data-id="'+it.id+'" aria-label="Изменить '+esc(it.name)+'">'+ic('edit')+'</button><button class="ib" data-act="del" data-id="'+it.id+'" aria-label="Убрать '+esc(it.name)+'">'+ic('trash')+'</button></div></div>').join('')+'</div>';
   }else h+='<div class="card empty"><b>Целей пока нет</b><span class="muted">Добавьте первую, это займёт полминуты.</span></div>';
   h+='<div class="addrow"><button class="btn" data-act="add">'+ic('plus')+'Добавить цель</button></div>';
   h+='<div class="sec"><h3>Версия</h3><div class="card">';
   if(pro)h+='<p><b>Полная версия активна.</b></p><p class="note">Ключ: '+esc(normKey(state.license).replace(/^(PM-)....-....(-....)$/,'$1••••-••••$2'))+'</p>';
-  else h+='<p><b>Сейчас демо-версия.</b></p><p class="note">До '+CONFIG.FREE_LIMIT+' целей, без календаря месяца и графиков роста.</p><div class="rowbtn"><button class="btn" data-act="upsell">Открыть полную версию</button></div><div class="fld"><span>Уже оплатили? Введите ключ</span><input type="text" id="keyin" placeholder="PM-XXXX-XXXX-XXXX" autocomplete="off" autocapitalize="characters" spellcheck="false"></div><div class="rowbtn"><button class="btn ghost" data-act="activate" data-src="keyin">Активировать</button></div>';
+  else h+='<p><b>Сейчас демо-версия.</b></p><p class="note">До '+CONFIG.FREE_LIMIT+' своих целей (примеры не считаются). Календарь месяца, графики роста, достижения, недельный итог, резервная копия и выбор оформления — в полной версии.</p><div class="rowbtn"><button class="btn" data-act="upsell">Открыть полную версию</button></div><div class="fld"><span>Уже оплатили? Введите ключ</span><input type="text" id="keyin" placeholder="PM-XXXX-XXXX-XXXX" autocomplete="off" autocapitalize="characters" spellcheck="false"></div><div class="rowbtn"><button class="btn ghost" data-act="activate" data-src="keyin">Активировать</button></div>';
   h+='</div></div>';
-  h+='<div class="sec"><h3>Резервная копия</h3><div class="card"><p class="note" style="margin-top:0">Скопируйте данные, чтобы перенести их на другое устройство или сохранить на всякий случай.</p><div class="rowbtn"><button class="btn ghost" data-act="export">Скопировать данные</button><button class="btn ghost" data-act="import">Вставить данные</button></div></div></div>';
+  h+=appearSec();
+  h+=backupSec();
   h+='<div class="sec"><h3>Сброс</h3><div class="card"><p class="note" style="margin-top:0">Удалит все цели, опыт и историю на этом устройстве.</p><div class="rowbtn"><button class="btn danger" data-act="reset">Стереть всё</button></div></div></div>';
   return h;
 }
 
-const NAV=[['today','Сегодня'],['week','Неделя'],['month','Месяц'],['growth','Рост'],['goals','Цели']];
+const NAV=[['today','Сегодня'],['week','Неделя'],['month','Месяц'],['growth','Рост'],['ach','Достижения'],['goals','Цели']];
 function renderNav(){
   const pro=isPro();
   $('#nav').innerHTML=NAV.map(n=>'<button class="'+(ui.tab===n[0]?'on':'')+'" data-act="tab" data-v="'+n[0]+'" aria-current="'+(ui.tab===n[0])+'">'+ic(n[0])+n[1]+((!pro&&(n[0]==='month'||n[0]==='growth'))?'<svg class="lk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.500" stroke-linecap="round" stroke-linejoin="round" aria-label="только в полной версии">'+P.lock+'</svg>':'')+'</button>').join('');
@@ -655,11 +1101,13 @@ function renderNav(){
 }
 function render(){
   S=compute();
+  applyPal();
   const v=ui.tab;let h;
   if(v==='today')h=viewToday();
   else if(v==='week')h=viewWeek();
   else if(v==='month')h=gate(viewMonth(),'Календарь месяца',['Тепловая карта всех дней месяца','Итоги и проценты по каждой цели','История за месяцы остаётся с вами']);
   else if(v==='growth')h=gate(viewGrowth(),'График роста',['График уровня за 14, 30 и 90 дней','Процент выполнения привычек и серии','Уровень по каждому навыку']);
+  else if(v==='ach')h=viewAch();
   else h=viewGoals();
   $('#view').innerHTML=h;
   renderNav();
@@ -683,7 +1131,8 @@ function renderModal(keep){
   else if(m.type==='amount')b=amountHtml();
   else if(m.type==='confirm')b='<h2>'+esc(m.title)+'</h2><p class="muted">'+esc(m.text)+'</p><div class="rowbtn"><button class="btn ghost" data-act="close">Отмена</button><button class="btn danger" data-act="'+m.act+'" data-id="'+(m.id||'')+'">'+esc(m.yes)+'</button></div>';
   else if(m.type==='upsell')b=upsellHtml();
-  else if(m.type==='export')b='<h2>Резервная копия</h2><p class="muted">Скопируйте этот текст и сохраните. Чтобы восстановить, вставьте его в окне «Вставить данные».</p><div class="fld"><textarea id="exp" readonly>'+esc(JSON.stringify({items:state.items,logs:state.logs,created:state.created}))+'</textarea></div><div class="rowbtn"><button class="btn" data-act="copy">Скопировать</button></div>';
+  else if(m.type==='restore'){const p=ui.pending;b='<h2>Загрузить данные?</h2><p class="muted">В копии: '+p.nItems+' '+plural(p.nItems,['цель','цели','целей'])+' и '+p.nDays+' '+plural(p.nDays,['день','дня','дней'])+' с отметками. Данные на этом устройстве будут заменены. Лицензия останется.</p><p class="note">Перед заменой текущие данные сохраняются в браузере отдельной копией.</p><div class="rowbtn"><button class="btn ghost" data-act="close">Отмена</button><button class="btn" data-act="restore-yes">Заменить данные</button></div>';}
+  else if(m.type==='export')b='<h2>Резервная копия</h2><p class="muted">Скопируйте этот текст и сохраните. Чтобы восстановить, вставьте его в окне «Вставить данные».</p><div class="fld"><textarea id="exp" readonly>'+esc(JSON.stringify(buildBackup()))+'</textarea></div><div class="rowbtn"><button class="btn" data-act="copy">Скопировать</button></div>';
   else if(m.type==='import')b='<h2>Вставить данные</h2><p class="muted">Вставьте текст резервной копии. Текущие данные будут заменены.</p><form data-form="import"><div class="fld"><textarea id="imp" placeholder="Сюда вставьте текст копии"></textarea></div>'+(m.err?'<p class="err">'+esc(m.err)+'</p>':'')+'<div class="rowbtn"><button type="button" class="btn ghost" data-act="close">Отмена</button><button class="btn">Загрузить</button></div></form>';
   el.className='open';
   el.innerHTML='<div class="scrim" data-act="close"></div><div class="sheet" role="dialog" aria-modal="true"><button class="x" data-act="close" aria-label="Закрыть">'+ic('x')+'</button>'+b+'</div>';
@@ -714,7 +1163,7 @@ function amountHtml(){
 }
 function upsellHtml(){
   const m=ui.modal;
-  return '<h2>'+(m.why==='limit'?'В демо до '+CONFIG.FREE_LIMIT+' целей':'Полная версия')+'</h2><p class="muted" style="margin-bottom:10px">Один платёж, без подписки. Всё работает прямо в браузере.</p><ul class="feat"><li>'+ic('check')+'<span>Сколько угодно целей</span></li><li>'+ic('check')+'<span>Календарь месяца и история прогресса</span></li><li>'+ic('check')+'<span>Графики роста уровня и процент выполнения привычек</span></li><li>'+ic('check')+'<span>Уровни по каждому навыку</span></li></ul><div class="price">'+CONFIG.PRICE+'</div><div class="rowbtn" style="margin-top:8px"><button class="btn" data-act="buy">Купить полную версию</button></div><div class="fld"><span>Уже есть ключ?</span><input type="text" id="keyin2" placeholder="PM-XXXX-XXXX-XXXX" autocomplete="off" autocapitalize="characters" spellcheck="false"></div><div class="rowbtn"><button class="btn ghost" data-act="activate" data-src="keyin2">Активировать</button></div>';
+  return '<h2>'+(m.why==='limit'?'В демо до '+CONFIG.FREE_LIMIT+' своих целей':'Полная версия')+'</h2><p class="muted" style="margin-bottom:10px">Один платёж, без подписки. Всё работает прямо в браузере.</p><ul class="feat">'+['Сколько угодно целей','Растение растёт до ранга «Роща», плюс новые растения и цветовые темы','Достижения и заморозка серии раз в неделю','Недельный итог: что сделано, лучшие привычки, что просело, подсказка','Календарь месяца и графики роста уровня','Резервная копия: сохранить данные в файл и загрузить обратно'].map(x=>'<li>'+ic('check')+'<span>'+x+'</span></li>').join('')+'</ul><div class="price">'+CONFIG.PRICE+'</div><div class="rowbtn" style="margin-top:8px"><button class="btn" data-act="buy">Купить полную версию</button></div><div class="fld"><span>Уже есть ключ?</span><input type="text" id="keyin2" placeholder="PM-XXXX-XXXX-XXXX" autocomplete="off" autocapitalize="characters" spellcheck="false"></div><div class="rowbtn"><button class="btn ghost" data-act="activate" data-src="keyin2">Активировать</button></div>';
 }
 
 /* ================= ДЕЙСТВИЯ ================= */
@@ -737,7 +1186,7 @@ function saveItem(){
   const data={name,icon:f.icon,type:f.type,xp,unit,target,step,days:f.days.slice().sort(),date:f.type==='task'?f.date:null};
   if(f.id){Object.assign(item(f.id),data);}
   else{
-    if(!isPro()&&liveItems().length>=CONFIG.FREE_LIMIT){closeModal();openModal({type:'upsell',why:'limit'});return;}
+    if(!isPro()&&ownItems().length>=CONFIG.FREE_LIMIT){closeModal();openModal({type:'upsell',why:'limit'});return;}
     state.items.push(mkItem(data));
   }
   save();closeModal();render();toast('Сохранено');
@@ -748,13 +1197,10 @@ function openAmount(id,d){
 }
 function saveAmount(){const m=ui.modal,v=+($('#amtin').value);const id=m.id,d=m.d;closeModal();setAmount(d,id,isFinite(v)?v:0);}
 function doImport(){
-  const raw=($('#imp').value||'').trim();
-  try{
-    const o=JSON.parse(raw);
-    if(!sane(o))throw 0;
-    state.items=o.items.map(i=>mkItem(i));state.logs=o.logs;state.created=o.created||today();
-    save();closeModal();render();toast('Данные загружены');
-  }catch(e){ui.modal.err='Не получилось прочитать текст. Скопируйте его целиком из резервной копии.';renderModal(true);}
+  if(!isPro())return;
+  const p=parseBackup(($('#imp').value||'').trim());
+  if(p.err){ui.modal.err=p.err;renderModal(true);return;}
+  ui.pending=p;openModal({type:'restore'});
 }
 function buy(){location.href='../#buy';}   /* окно покупки находится на странице продукта */
 async function activate(src){
@@ -797,13 +1243,20 @@ const A={
   wk(el){ui.weekStart=addDays(ui.weekStart,7*(+el.dataset.v));render();},
   mo(el){ui.month=addMonths(ui.month,+el.dataset.v);render();},
   range(el){ui.range=+el.dataset.v;render();},
-  add(){if(!isPro()&&liveItems().length>=CONFIG.FREE_LIMIT){openModal({type:'upsell',why:'limit'});return;}openItemForm(null);},
+  add(){if(!isPro()&&ownItems().length>=CONFIG.FREE_LIMIT){openModal({type:'upsell',why:'limit'});return;}openItemForm(null);},
   edit(el){openItemForm(el.dataset.id);},
   del(el){const it=item(el.dataset.id);openModal({type:'confirm',title:'Убрать «'+it.name+'»?',text:'Цель исчезнет из списка, а накопленный опыт и история останутся.',yes:'Убрать',act:'del-yes',id:it.id});},
   'del-yes'(el){const it=item(el.dataset.id);if(it){it.end=today();save();}closeModal();render();toast('Цель убрана');},
   reset(){openModal({type:'confirm',title:'Стереть все данные?',text:'Цели, опыт и история будут удалены с этого устройства. Это нельзя отменить.',yes:'Стереть',act:'reset-yes'});},
-  'reset-yes'(){const lic=state.license,tk=state.token;state=fresh();state.license=lic;state.token=tk;save();closeModal();ui.date=today();render();toast('Всё стёрто');},
+  'reset-yes'(){const lic=state.license,tk=state.token;state=fresh();state.license=lic;state.token=tk;save();meta.ach={};meta.freeze={};saveMeta();closeModal();ui.date=today();render();toast('Всё стёрто');},
   upsell(){openModal({type:'upsell'});},
+  freeze(){const d=ui.date;if(!isPro()||d>today()||(S.dayXp[d]||0)>0||meta.freeze[d]||freezeInWeek(d))return;meta.freeze[d]=true;saveMeta();render();toast('День заморожен: серия сохранена',{ms:2800});},
+  unfreeze(){const d=ui.date;if(meta.freeze[d]){delete meta.freeze[d];saveMeta();render();toast('Заморозка снята');}},
+  plant(el){if(!isPro()){openModal({type:'upsell'});return;}meta.plant=el.dataset.v;saveMeta();render();},
+  pal(el){if(!isPro()){openModal({type:'upsell'});return;}meta.pal=el.dataset.v;saveMeta();render();},
+  dl(){if(isPro())downloadBackup();else openModal({type:'upsell'});},
+  ldfile(){if(!isPro()){openModal({type:'upsell'});return;}const i=document.getElementById('bkfile');if(i)i.click();},
+  'restore-yes'(){applyRestore();},
   buy(){buy();},
   activate(el){activate(el.dataset.src);},
   export(){openModal({type:'export'});},
@@ -836,7 +1289,9 @@ document.addEventListener('submit',function(e){
   if(f==='item')saveItem();else if(f==='amount')saveAmount();else if(f==='import')doImport();
 });
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&ui.modal)closeModal();});
+document.addEventListener('change',function(e){if(e.target&&e.target.id==='bkfile')pickFile(e.target);});
 
+S=compute();syncAch(metaFresh);if(metaFresh)saveMeta();
 recheckLicense();
 activateFromUrl().then(function(ok){if(ok){render();toast('Полная версия активирована',{kind:'level',ms:3200});}});
 render();
